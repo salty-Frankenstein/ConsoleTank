@@ -1,5 +1,6 @@
-#pragma once
-#include"tankbase.h"
+﻿#pragma once
+#include "tankbase.h"
+
 
 const int LENGTH = 3;
 const int WIDTH = 3;
@@ -9,5 +10,5 @@ public:
 	void Update();
 	void DrawTank();
 private:
-	static const char image[LENGTH][WIDTH];
+	static const wchar_t image[LENGTH][WIDTH];
 };

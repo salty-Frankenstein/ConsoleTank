@@ -1,4 +1,4 @@
-#include"sprite.h"
+﻿#include"sprite.h"
 
 void Buffer::Show() {
 	for (auto i = spriteList.begin(); i != spriteList.end(); i++)

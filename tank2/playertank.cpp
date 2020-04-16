@@ -1,38 +1,38 @@
-#include"playertank.h"
-
-const char PlayerTank::image[LENGTH][WIDTH] = {
-{ ' ','#',' ' },
-{ '#','#','#' },
-{ '#','0','#' }
+﻿#include"playertank.h"
+using namespace std;
+const wchar_t PlayerTank::image[LENGTH][WIDTH] = {
+	{ L'　',L'█',L'　' },
+{ L'█',L'█',L'█' },
+{ L'█',L'★',L'█' }
 };
 
 PlayerTank::PlayerTank() :TankBase(3, 3, 10, 10) {}
 
-void PlayerTank::DrawTank() {
+inline void PlayerTank::DrawTank() {
 	auto pos = posCur;
 	for (int i = 0; i < LENGTH; i++) {
-		SetConsoleCursorPosition(stdoutPtr, pos);
+		SetConsoleCursorPosition(stdoutHdl, pos);
 		pos.Y++;
 		for (int j = 0; j < WIDTH; j++) {
 			switch (direction) {
 			case D_UP:
-				putchar(image[i][j]);
+				wcout << (image[i][j]);
 				break;
 			case D_DOWN:
-				putchar(image[LENGTH - i - 1][j]);
+				wcout << (image[LENGTH - i - 1][j]);
 				break;
 			case D_LEFT:
-				putchar(image[j][i]);
+				wcout << (image[j][i]);
 				break;
 			case D_RIGHT:
-				putchar(image[WIDTH - j - 1][i]);
+				wcout << (image[WIDTH - j - 1][i]);
 				break;
 			}
 		}
 	}
 }
 
-void PlayerTank::Update() {
+inline void PlayerTank::Update() {
 	posLast = posCur;
 	//auto c = getchar();
 	//if (c == 'w')posCur.X++;
@@ -43,11 +43,11 @@ void PlayerTank::Update() {
 			direction = D_UP;
 			break;
 		case 75:
-			posCur.X--;
+			posCur.X-=2;
 			direction = D_LEFT;
 			break;
 		case 77:
-			posCur.X++;
+			posCur.X+=2;
 			direction = D_RIGHT;
 			break;
 		case 80:

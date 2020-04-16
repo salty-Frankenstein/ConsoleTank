@@ -1,14 +1,9 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include "gameobject.h"
+﻿#include "game.h"
 using namespace std;
 
+Game game;
+
 int main() {
-	Buffer buf;
-	buf.Push(make_shared<PlayerTank>());
-	while (1) {
-		buf.Show();
-		buf.Update();
-		Sleep(30);
-	}
+	game.Run();
 	return 0;
 }
