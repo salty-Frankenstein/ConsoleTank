@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include"common.h"
 #include"sprite.h"
 #include <windows.h>
 #include <conio.h>
@@ -6,6 +7,7 @@
 #include <iostream>
 
 enum Direction { D_UP, D_DOWN, D_LEFT, D_RIGHT };
+const int LAYER_TANK = 3;
 /* base class for tank objects */
 class TankBase :public Sprite {
 public:
@@ -17,7 +19,6 @@ protected:
 	Direction direction;
 	COORD posLast;		//the tank object's position last frame
 	COORD posCur;		//the tank object's position now
-	HANDLE stdoutHdl;	//handle of stdout
 private:
 	int length;
 	int width;

@@ -11,7 +11,7 @@ PlayerTank::PlayerTank() :TankBase(3, 3, 10, 10) {}
 inline void PlayerTank::DrawTank() {
 	auto pos = posCur;
 	for (int i = 0; i < LENGTH; i++) {
-		SetConsoleCursorPosition(stdoutHdl, pos);
+		SetConsoleCursorPosition(GetStdOHdl(), pos);
 		pos.Y++;
 		for (int j = 0; j < WIDTH; j++) {
 			switch (direction) {

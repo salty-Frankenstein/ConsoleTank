@@ -1,10 +1,10 @@
 ﻿#include"tankbase.h"
 using namespace std;
 
-TankBase::TankBase(int _length, int _width, int _x, int _y) {
+TankBase::TankBase(int _length, int _width, int _x, int _y)
+	: Sprite(LAYER_TANK) {
 	length = _length;
 	width = _width;
-	stdoutHdl = GetStdHandle(STD_OUTPUT_HANDLE);
 	direction = D_UP;
 	posCur.X = posLast.X = _x;
 	posCur.Y = posLast.Y = _y;
@@ -16,7 +16,7 @@ inline void TankBase::Show() {
 	
 	if (direction == D_UP || direction == D_DOWN) {
 		for (int i = 1; i <= width; i++) {
-			SetConsoleCursorPosition(stdoutHdl, pos);
+			SetConsoleCursorPosition(GetStdOHdl(), pos);
 			pos.Y++;
 			for (int j = 1; j <= length; j++)
 				wcout << L'　';
@@ -25,7 +25,7 @@ inline void TankBase::Show() {
 	}
 	else {
 		for (int i = 1; i <= length; i++) {
-			SetConsoleCursorPosition(stdoutHdl, pos);
+			SetConsoleCursorPosition(GetStdOHdl(), pos);
 			pos.Y++;
 			for (int j = 1; j <= width; j++)
 				wcout << L'　';

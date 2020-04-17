@@ -4,6 +4,7 @@
 
 const int LENGTH = 3;
 const int WIDTH = 3;
+
 class PlayerTank :public TankBase {
 public:
 	PlayerTank();
