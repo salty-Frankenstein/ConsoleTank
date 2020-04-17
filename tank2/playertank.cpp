@@ -1,6 +1,6 @@
 ﻿#include"playertank.h"
 using namespace std;
-const wchar_t PlayerTank::image[LENGTH][WIDTH] = {
+const wchar_t PlayerTank::image[PLAYERTANK_X][PLAYERTANK_Y] = {
 	{ L'　',L'█',L'　' },
 { L'█',L'█',L'█' },
 { L'█',L'★',L'█' }
@@ -10,22 +10,22 @@ PlayerTank::PlayerTank() :TankBase(3, 3, 10, 10) {}
 
 inline void PlayerTank::DrawTank() {
 	auto pos = posCur;
-	for (int i = 0; i < LENGTH; i++) {
+	for (int i = 0; i < PLAYERTANK_Y; i++) {
 		SetConsoleCursorPosition(GetStdOHdl(), pos);
 		pos.Y++;
-		for (int j = 0; j < WIDTH; j++) {
+		for (int j = 0; j < PLAYERTANK_X; j++) {
 			switch (direction) {
 			case D_UP:
 				wcout << (image[i][j]);
 				break;
 			case D_DOWN:
-				wcout << (image[LENGTH - i - 1][j]);
+				wcout << (image[PLAYERTANK_Y - i - 1][j]);
 				break;
 			case D_LEFT:
 				wcout << (image[j][i]);
 				break;
 			case D_RIGHT:
-				wcout << (image[WIDTH - j - 1][i]);
+				wcout << (image[PLAYERTANK_X - j - 1][i]);
 				break;
 			}
 		}

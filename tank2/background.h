@@ -1,6 +1,7 @@
 #pragma once
 #include"common.h"
 #include"sprite.h"
+#include<iostream>
 
 class Background :public Sprite {
 public:

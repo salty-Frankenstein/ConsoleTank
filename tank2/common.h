@@ -1,9 +1,11 @@
 ﻿#pragma once
 #include <windows.h>
-const int GRID_LENGTH = 40;
-const int GRID_WIDTH = 60;
+const int GRID_X = 60;
+const int GRID_Y = 60;
 
 HANDLE GetStdOHdl();
+
+void SetConsolePosition(COORD pos);
 
 /* (编译期)生成全为C的宽字符数组 */
 template <size_t N>
