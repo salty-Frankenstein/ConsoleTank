@@ -8,3 +8,5 @@ HANDLE GetStdOHdl() {
 void SetConsolePosition(COORD pos) {
 	SetConsoleCursorPosition(GetStdOHdl(), pos);
 }
+
+

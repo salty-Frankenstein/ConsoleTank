@@ -2,6 +2,8 @@
 #include "game.h"
 using namespace std;
 
+GameTime Game::gameTime = 0;
+
 Game::Game() {
 	//system("chcp 65001");
 	//system("cls");
@@ -31,6 +33,7 @@ Game::Game() {
 void Game::Run() {
 	Buffer buf;
 	buf.Push(make_shared<PlayerTank>());
+	buf.Push(make_shared<EnemyTank>(6, 6, 1, 1, 1));
 	shared_ptr<Background> bg = make_shared<Background>();
 	bg->Draw();
 	buf.Push(bg);
@@ -38,5 +41,10 @@ void Game::Run() {
 		buf.Show();
 		buf.Update();
 		Sleep(30);
+		gameTime++;
 	}
+}
+
+GameTime Game::GetGameTime() {
+	return gameTime;
 }

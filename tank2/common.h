@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include <windows.h>
+#include <conio.h>
+#include <ctime>
 const int GRID_X = 60;
 const int GRID_Y = 60;
 
@@ -32,4 +34,13 @@ constexpr const wchar_t* GetStringN(wchar_t c) {
 	return reinterpret_cast<const wchar_t*>(&s);
 }
 
-
+/* 仿函数，产生ab之间的随机整数 */
+class RandomInt {
+public:
+	RandomInt() {
+		srand((unsigned)time(NULL));
+	}
+	int operator()(int a, int b) {
+		return (rand() % (b - a + 1)) + a;
+	}
+};

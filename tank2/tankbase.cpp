@@ -1,20 +1,26 @@
 ﻿#include"tankbase.h"
 using namespace std;
 
-TankBase::TankBase(int _widthX, int _widthY, int _x, int _y)
+TankBase::TankBase(int _widthX, int _widthY, int _x, int _y, int _hp, int _damage, int _speed)
 	: Sprite(LAYER_TANK) {
 	widthX = _widthX;
 	widthY = _widthY;
-	direction = D_UP;
+	dirCur = D_UP;
+	dirLast = D_LEFT;
 	posCur.X = posLast.X = _x;
 	posCur.Y = posLast.Y = _y;
+	hp = _hp;
+	damage = _damage;
+	speed = _speed;
 }
 
 inline void TankBase::Show() {
 	//do the cleaning
+	if (posLast.Y == posCur.Y && posLast.X == posCur.X
+		&& dirLast == dirCur)return;
 	auto pos = posLast;
 	
-	if (direction == D_UP || direction == D_DOWN) {
+	if (dirCur == D_UP || dirCur == D_DOWN) {
 		for (int i = 1; i <= widthY; i++) {
 			SetConsoleCursorPosition(GetStdOHdl(), pos);
 			pos.Y++;
@@ -35,4 +41,12 @@ inline void TankBase::Show() {
 	
 	//draw a new frame
 	DrawTank();
+}
+
+inline int TankBase::GetWidthX()const {
+	return widthX;
+}
+
+inline int TankBase::GetWidthY()const {
+	return widthY;
 }

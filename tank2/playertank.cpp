@@ -6,7 +6,13 @@ const wchar_t PlayerTank::image[PLAYERTANK_X][PLAYERTANK_Y] = {
 { L'█',L'★',L'█' }
 };
 
-PlayerTank::PlayerTank() :TankBase(3, 3, 10, 10) {}
+PlayerTank::PlayerTank() 
+	:TankBase(
+		PLAYERTANK_X, PLAYERTANK_Y,
+		10, 10,
+		PLAYERTANK_HP,
+		PLAYERTANK_DAMAGE,
+		PLAYERTANK_SPEED) {}
 
 inline void PlayerTank::DrawTank() {
 	auto pos = posCur;
@@ -14,7 +20,7 @@ inline void PlayerTank::DrawTank() {
 		SetConsoleCursorPosition(GetStdOHdl(), pos);
 		pos.Y++;
 		for (int j = 0; j < PLAYERTANK_X; j++) {
-			switch (direction) {
+			switch (dirCur) {
 			case D_UP:
 				wcout << (image[i][j]);
 				break;
@@ -34,25 +40,26 @@ inline void PlayerTank::DrawTank() {
 
 inline void PlayerTank::Update() {
 	posLast = posCur;
+	dirLast = dirCur;
 	//auto c = getchar();
 	//if (c == 'w')posCur.X++;
 	if (_kbhit()) {
 		switch (_getch()) {
 		case 72:
-			posCur.Y--;
-			direction = D_UP;
+			if (posCur.Y > 1)posCur.Y--;
+			dirCur = D_UP;
 			break;
 		case 75:
-			posCur.X-=2;
-			direction = D_LEFT;
+			if (posCur.X > 2)posCur.X -= 2;
+			dirCur = D_LEFT;
 			break;
 		case 77:
-			posCur.X+=2;
-			direction = D_RIGHT;
+			if (posCur.X < 2 * (GRID_X - PLAYERTANK_X - 1))posCur.X += 2;
+			dirCur = D_RIGHT;
 			break;
 		case 80:
-			posCur.Y++;
-			direction = D_DOWN;
+			if (posCur.Y < GRID_Y - PLAYERTANK_Y - 1)posCur.Y++;
+			dirCur = D_DOWN;
 			break;
 		default: break;
 		}
