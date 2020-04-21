@@ -28,16 +28,21 @@ Game::Game() {
 	GetConsoleCursorInfo(stdoutHdl, &CursorInfo);
 	CursorInfo.bVisible = false;
 	SetConsoleCursorInfo(stdoutHdl, &CursorInfo);
+
+	Sprite::bufferHdl = &buf;
 }
 
 void Game::Run() {
-	Buffer buf;
+	//Buffer buf;
 	buf.Push(make_shared<PlayerTank>());
 	buf.Push(make_shared<EnemyTank>(6, 6, 1, 1, 1));
+	//buf.Push(make_shared<Bullet>(S_PLAYER_BULLET, 36, 36, D_LEFT));
 	shared_ptr<Background> bg = make_shared<Background>();
 	bg->Draw();
 	buf.Push(bg);
+	
 	while (1) {
+		//cout << buf.Size() << endl;
 		buf.Show();
 		buf.Update();
 		Sleep(30);

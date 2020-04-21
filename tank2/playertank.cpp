@@ -8,8 +8,9 @@ const wchar_t PlayerTank::image[PLAYERTANK_X][PLAYERTANK_Y] = {
 
 PlayerTank::PlayerTank() 
 	:TankBase(
+		S_PLAYER,
 		PLAYERTANK_X, PLAYERTANK_Y,
-		10, 10,
+		40, 40,
 		PLAYERTANK_HP,
 		PLAYERTANK_DAMAGE,
 		PLAYERTANK_SPEED) {}
@@ -39,10 +40,14 @@ inline void PlayerTank::DrawTank() {
 }
 
 inline void PlayerTank::Update() {
+	if (hp <= 0)del = true;
 	posLast = posCur;
 	dirLast = dirCur;
 	//auto c = getchar();
 	//if (c == 'w')posCur.X++;
+	
+	//system("pause");
+	auto bulPos = posCur;
 	if (_kbhit()) {
 		switch (_getch()) {
 		case 72:
@@ -60,6 +65,15 @@ inline void PlayerTank::Update() {
 		case 80:
 			if (posCur.Y < GRID_Y - PLAYERTANK_Y - 1)posCur.Y++;
 			dirCur = D_DOWN;
+			break;
+		case 'z':	//发射子弹
+			switch (dirCur){
+			case D_UP:bulPos.X += 2; bulPos.Y--;break;
+			case D_DOWN:bulPos.X += 2; bulPos.Y += 3; break;
+			case D_LEFT:bulPos.X -= 2; bulPos.Y++; break;
+			case D_RIGHT:bulPos.X += 6; bulPos.Y++; break;
+			}
+			bufferHdl->Push(make_shared<Bullet>(S_PLAYER_BULLET, bulPos.X, bulPos.Y, dirCur));
 			break;
 		default: break;
 		}

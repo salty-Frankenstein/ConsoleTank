@@ -1,9 +1,14 @@
-﻿#pragma once
+﻿/*
+	共用的常量、函数
+*/
+#pragma once
 #include <windows.h>
 #include <conio.h>
 #include <ctime>
 const int GRID_X = 60;
 const int GRID_Y = 60;
+
+enum Direction { D_UP, D_DOWN, D_LEFT, D_RIGHT };
 
 HANDLE GetStdOHdl();
 

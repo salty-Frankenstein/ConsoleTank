@@ -39,6 +39,9 @@
     <ClCompile Include="enemytank.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="bullet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sprite.h">
@@ -63,6 +66,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="enemytank.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,8 +1,9 @@
 ﻿#include"tankbase.h"
 using namespace std;
 
-TankBase::TankBase(int _widthX, int _widthY, int _x, int _y, int _hp, int _damage, int _speed)
-	: Sprite(LAYER_TANK) {
+TankBase::TankBase(SpriteType type, int _widthX, int _widthY,
+	int _x, int _y, int _hp, int _damage, int _speed)
+	: Sprite(LAYER_TANK, type) {
 	widthX = _widthX;
 	widthY = _widthY;
 	dirCur = D_UP;
@@ -49,4 +50,8 @@ inline int TankBase::GetWidthX()const {
 
 inline int TankBase::GetWidthY()const {
 	return widthY;
+}
+
+void TankBase::GetDamage(int damage) {
+	hp -= damage;
 }

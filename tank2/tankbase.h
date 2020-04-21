@@ -6,17 +6,19 @@
 #include <cstdio>
 #include <iostream>
 
-enum Direction { D_UP, D_DOWN, D_LEFT, D_RIGHT };
+
 const int LAYER_TANK = 3;
 /* base class for tank objects */
 class TankBase :public Sprite {
 public:
-	TankBase(int widthX, int widthY, int x, int y, int hp, int damage, int speed);
+	TankBase(SpriteType type, int widthX, int widthY, 
+		int x, int y, int hp, int damage, int speed);
 	virtual void Update() = 0;		//override: the update method
 	void Show();
 	virtual void DrawTank() = 0;	//override: draw the tank appearance
 	int GetWidthX()const;
 	int GetWidthY()const;
+	void GetDamage(int damage);
 protected:
 	Direction dirLast;
 	Direction dirCur;

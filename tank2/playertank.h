@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "tankbase.h"
+#include "bullet.h"
 
 /* 长宽 */
 const int PLAYERTANK_X = 3;
