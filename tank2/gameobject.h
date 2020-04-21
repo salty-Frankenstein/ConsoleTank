@@ -4,3 +4,4 @@
 #include "bullet.h"
 #include "barrier.h"
 #include "background.h"
+#include "number.h"

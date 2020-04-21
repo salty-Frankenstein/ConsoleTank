@@ -10,6 +10,7 @@ public:
 	void Run();
 	static GameTime GetGameTime();
 private:
+	Number score;
 	Buffer buf;
 	HANDLE stdoutHdl;
 	static GameTime gameTime;

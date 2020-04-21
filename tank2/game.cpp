@@ -4,14 +4,14 @@ using namespace std;
 
 GameTime Game::gameTime = 0;
 
-Game::Game() {
+Game::Game() :score(GRID_X * 2 + 10, 10, 5) {
 	//system("chcp 65001");
 	//system("cls");
 	system("mode con cols=160 lines=85");
 	wcout.imbue(locale(""));
 	CONSOLE_FONT_INFOEX info = { 0 }; // 以下设置字体
 	info.cbSize = sizeof(info);
-	info.dwFontSize.Y = 10; // leave X as zero
+	info.dwFontSize.Y = 8; // leave X as zero
 	info.FontWeight = FW_NORMAL;
 	wcscpy(info.FaceName, L"Consolas");
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), NULL, &info);
@@ -30,6 +30,7 @@ Game::Game() {
 	SetConsoleCursorInfo(stdoutHdl, &CursorInfo);
 
 	Sprite::bufferHdl = &buf;
+	buf.Push(shared_ptr<Number>(&score));
 }
 
 void Game::Run() {
@@ -37,7 +38,7 @@ void Game::Run() {
 	buf.Push(make_shared<PlayerTank>());
 	for (int i = 1; i <= 3; i++)
 		for (int j = 1; j <= 2; j++)
-			buf.Push(make_shared<EnemyTank>(16 + i * 10, 2 + j * 10, 3, 1, 1));
+			buf.Push(make_shared<EnemyTank>(16 + i * 16, 2 + j * 16, 3, 1, 1));
 	
 	shared_ptr<Background> bg = make_shared<Background>();
 	bg->Draw();
@@ -53,6 +54,7 @@ void Game::Run() {
 		buf.Push(make_shared<IronWall>(2 * i + 6, 50));
 	while (1) {
 		//cout << buf.Size() << endl;
+		score.SetNumber(gameTime);
 		buf.Sort();
 		buf.Show();
 		buf.Update();

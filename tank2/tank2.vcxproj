@@ -122,6 +122,7 @@
     <ClCompile Include="enemytank.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="number.cpp" />
     <ClCompile Include="playertank.cpp" />
     <ClCompile Include="tankbase.cpp" />
     <ClCompile Include="sprite.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="enemytank.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameobject.h" />
+    <ClInclude Include="number.h" />
     <ClInclude Include="playertank.h" />
     <ClInclude Include="tankbase.h" />
     <ClInclude Include="sprite.h" />

@@ -2,6 +2,7 @@
 #include"common.h"
 #include"sprite.h"
 #include"barrier.h"
+#include"number.h"
 #include<iostream>
 #include<fstream>
 #include<string>
@@ -12,5 +13,4 @@ public:
 	void Update();
 	void Draw();	//drawing for borders
 private:
-
 };
