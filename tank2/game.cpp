@@ -35,14 +35,16 @@ Game::Game() {
 void Game::Run() {
 	system("cls");
 	buf.Push(make_shared<PlayerTank>());
-	buf.Push(make_shared<EnemyTank>(6, 6, 1, 1, 1));
+	buf.Push(make_shared<EnemyTank>(16, 16, 3, 1, 1));
 	//buf.Push(make_shared<Bullet>(S_PLAYER_BULLET, 36, 36, D_LEFT));
 	shared_ptr<Background> bg = make_shared<Background>();
 	bg->Draw();
 	buf.Push(bg);
-	
+	for (int i = 1; i <= 10; i++)
+		buf.Push(make_shared<IronWall>(2 * i + 6, 6));
 	while (1) {
 		//cout << buf.Size() << endl;
+		buf.Sort();
 		buf.Show();
 		buf.Update();
 		Sleep(30);

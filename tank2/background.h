@@ -1,6 +1,7 @@
 #pragma once
 #include"common.h"
 #include"sprite.h"
+#include"barrier.h"
 #include<iostream>
 #include<fstream>
 #include<string>

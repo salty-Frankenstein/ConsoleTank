@@ -7,7 +7,7 @@ public:
 	EnemyTank(int x, int y, int hp, int damage, int speed);
 	void Update();
 	void DrawTank();
-private:
+protected:
 	void GoStraight();
 	const static int WIDTH_X = 3;
 	const static int WIDTH_Y = 3;

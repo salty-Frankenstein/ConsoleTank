@@ -10,13 +10,15 @@ PlayerTank::PlayerTank()
 	:TankBase(
 		S_PLAYER,
 		PLAYERTANK_X, PLAYERTANK_Y,
-		40, 40,
+		20, 20,
 		PLAYERTANK_HP,
 		PLAYERTANK_DAMAGE,
 		PLAYERTANK_SPEED) {}
 
 inline void PlayerTank::DrawTank() {
 	auto pos = posCur;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 
+		FOREGROUND_RED|FOREGROUND_GREEN);
 	for (int i = 0; i < PLAYERTANK_Y; i++) {
 		SetConsoleCursorPosition(GetStdOHdl(), pos);
 		pos.Y++;
@@ -37,6 +39,7 @@ inline void PlayerTank::DrawTank() {
 			}
 		}
 	}
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 }
 
 inline void PlayerTank::Update() {
@@ -80,5 +83,18 @@ inline void PlayerTank::Update() {
 			break;
 		default: break;
 		}
+	}
+	auto res = bufferHdl->Any(
+		[=](shared_ptr<Sprite> s)->bool {
+		if (s->GetType() == S_UNDESTORYABLE &&
+			IsHit(this->GetPos(), 3, 3, s->GetPos(), 1, 1))
+			return true;
+		if (s->GetType() == S_ENEMY && IsHit(this->GetPos(), 3, 3, s->GetPos(), 3, 3))
+			return true;
+		return false;
+		}
+	);
+	if (res != nullptr) {
+		posCur = posLast;
 	}
 }

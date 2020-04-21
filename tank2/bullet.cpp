@@ -8,33 +8,55 @@ Bullet::Bullet(SpriteType type, int _x, int _y, Direction _dir)
 	posCur.Y = posLast.Y = _y;
 }
 
+void Bullet::Delete() {
+	del = true;
+	SetConsoleCursorPosition(GetStdOHdl(), posCur);
+	wcout << L'　';
+}
+
 void Bullet::Update() {
 	/* 飞出屏幕 */
 	if (posCur.X >= (GRID_X-3)*2 || posCur.Y >= GRID_Y -2 || posCur.X <= 2 || posCur.Y <= 1) {
-		del = true;
-		SetConsoleCursorPosition(GetStdOHdl(), posCur);
-		wcout << L'　';
+		Delete();
 	}
 	/* 击中目标 */
 	auto isEnemy = [=](shared_ptr<Sprite> s) -> bool {
-		if (s->GetType() == S_DESTORYABLE)return true;
 		if (this->GetType() == S_ENEMY_BULLET) {
-			if (s->GetType() == S_PLAYER)return true;
-			return false;
+			switch (s->GetType()) {
+			case S_DESTORYABLE:
+			case S_UNDESTORYABLE:
+			case S_PLAYER_BULLET:
+			case S_PLAYER:
+				return true;
+			default:
+				return false;
+			}
 		}
-		if (s->GetType() == S_ENEMY)return true;
-		return false;
+		else {
+			switch (s->GetType()) {
+			case S_DESTORYABLE:
+			case S_UNDESTORYABLE:
+			case S_ENEMY_BULLET:
+			case S_ENEMY:
+				return true;
+			default:
+				return false;
+			}
+		}
 	};
 
 	auto isHit = [=](shared_ptr<Sprite> s)->bool {
 		switch (s->GetType()) {
 		case S_ENEMY_BULLET:
-			return IsHit(this->GetPos(), 1, 1, s->GetPos(), 1, 1);
+		case S_UNDESTORYABLE:
+		case S_DESTORYABLE:
+			return IsSamePos(this->GetPos(), s->GetPos());
 		case S_ENEMY:
 		case S_PLAYER:
 			auto t = static_cast<TankBase*>(s.get());
 			return IsHit(this->GetPos(), 1, 1, t->GetPos(), t->GetWidthX(), t->GetWidthY());
 		}
+		return false;
 	};
 
 	auto res = bufferHdl->Any(
@@ -45,12 +67,17 @@ void Bullet::Update() {
 
 	if (res != nullptr) {
 		switch (res->GetType()) {
+		case S_ENEMY_BULLET:
+		case S_PLAYER_BULLET:
+			res->del = true;
+			break;
 		case S_PLAYER:
 		case S_ENEMY:
 			static_cast<TankBase*>(res.get())->GetDamage(1);
 		default:
 			break;
 		}
+		Delete();
 	}
 
 	/* 移动 */
@@ -65,8 +92,12 @@ void Bullet::Update() {
 }
 
 void Bullet::Show() {
+	if(type == S_PLAYER_BULLET)
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_RED);
+	else SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
 	SetConsoleCursorPosition(GetStdOHdl(), posLast);
 	wcout << L'　';
 	SetConsoleCursorPosition(GetStdOHdl(), posCur);
 	wcout << image;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 }

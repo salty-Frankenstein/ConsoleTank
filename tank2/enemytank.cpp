@@ -13,6 +13,17 @@ EnemyTank::EnemyTank(int x, int y, int hp, int damage, int speed)
 
 void EnemyTank::DrawTank() {
 	auto pos = posCur;
+	switch (hp) {
+	case 1:
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+		break;
+	case 2:
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);
+		break;
+	default:
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
+		break;
+	}
 	for (int i = 0; i < WIDTH_Y; i++) {
 		SetConsoleCursorPosition(GetStdOHdl(), pos);
 		pos.Y++;
@@ -33,6 +44,7 @@ void EnemyTank::DrawTank() {
 			}
 		}
 	}
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 }
 
 /* 坦克移动AI */
@@ -45,11 +57,12 @@ void EnemyTank::Update() {
 	}
 	
 	/* 控制速度 */
-	if (Game::GetGameTime() % (speed*10) != 0)return;
+	if (Game::GetGameTime() % (speed*5) != 0)return;
 
 	posLast = posCur;
 	dirLast = dirCur;
-	switch (randomInt(1, 8)) {
+	
+	switch (randomInt(1, 10)) {
 	case 1:dirCur = D_UP; break;
 	case 2:dirCur = D_LEFT; break;
 	case 3:dirCur = D_RIGHT; break;
@@ -57,7 +70,7 @@ void EnemyTank::Update() {
 	default:GoStraight(); break;
 	}
 
-	if (randomInt(1, 10) == 1) {
+	if (randomInt(1, 4) == 1) {
 		auto bulPos = posCur;
 		switch (dirCur) {
 		case D_UP:bulPos.X += 2; bulPos.Y--; break;
@@ -67,6 +80,21 @@ void EnemyTank::Update() {
 		}
 		bufferHdl->Push(make_shared<Bullet>(S_ENEMY_BULLET, bulPos.X, bulPos.Y, dirCur));
 	}
+
+	auto res = bufferHdl->Any(
+		[=](shared_ptr<Sprite> s)->bool {
+		if (s->GetType() == S_UNDESTORYABLE &&
+			IsHit(this->GetPos(), 3, 3, s->GetPos(), 1, 1))
+			return true;
+		if (s->GetType() == S_PLAYER && IsHit(this->GetPos(), 3, 3, s->GetPos(), 3, 3))
+			return true;
+		return false;
+	}
+	);
+	if (res != nullptr) {
+		posCur = posLast;
+	}
+
 }
 
 inline void EnemyTank::GoStraight() {

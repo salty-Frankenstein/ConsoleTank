@@ -9,6 +9,7 @@ public:
 	Bullet(SpriteType type, int x, int y, Direction dir);
 	void Update();
 	void Show();
+	void Delete();
 private:
 	COORD posLast;
 	Direction dir;

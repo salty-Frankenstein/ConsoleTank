@@ -7,6 +7,7 @@
 #include <ctime>
 const int GRID_X = 60;
 const int GRID_Y = 60;
+const int REDRAW = 20;	//优化性能用
 
 enum Direction { D_UP, D_DOWN, D_LEFT, D_RIGHT };
 
@@ -51,3 +52,5 @@ public:
 };
 
 bool IsHit(COORD pos1, int wx1, int wy1, COORD pos2, int wx2, int wy2);
+
+bool IsSamePos(COORD pos1, COORD pos2);

@@ -6,7 +6,15 @@
 
 class Buffer;
 
-enum SpriteType { S_PLAYER, S_ENEMY, S_PLAYER_BULLET, S_ENEMY_BULLET, S_DESTORYABLE, S_OTHER };
+enum SpriteType {
+	S_PLAYER,
+	S_ENEMY,
+	S_PLAYER_BULLET,
+	S_ENEMY_BULLET,
+	S_DESTORYABLE,
+	S_UNDESTORYABLE,
+	S_OTHER
+};
 
 class Sprite {
 public:

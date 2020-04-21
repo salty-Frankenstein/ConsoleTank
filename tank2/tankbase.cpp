@@ -17,8 +17,7 @@ TankBase::TankBase(SpriteType type, int _widthX, int _widthY,
 
 inline void TankBase::Show() {
 	//do the cleaning
-	if (posLast.Y == posCur.Y && posLast.X == posCur.X
-		&& dirLast == dirCur)return;
+	if (IsSamePos(posCur,posLast) && dirLast == dirCur)return;
 	Clean();
 	
 	//draw a new frame
