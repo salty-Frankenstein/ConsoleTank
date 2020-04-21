@@ -2,7 +2,9 @@
 
 Buffer* Sprite::bufferHdl = nullptr;
 
-Sprite::Sprite(int _layer, SpriteType _type) {
+Sprite::Sprite(int x, int y, int _layer, SpriteType _type) {
+	posCur.X = x;
+	posCur.Y = y;
 	layer = _layer;
 	type = _type;
 	del = false;
@@ -14,6 +16,10 @@ int Sprite::GetLayer()const {
 
 SpriteType Sprite::GetType()const {
 	return type;
+}
+
+COORD Sprite::GetPos()const {
+	return posCur;
 }
 
 void Buffer::Show() {

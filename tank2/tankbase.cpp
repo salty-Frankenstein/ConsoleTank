@@ -3,7 +3,7 @@ using namespace std;
 
 TankBase::TankBase(SpriteType type, int _widthX, int _widthY,
 	int _x, int _y, int _hp, int _damage, int _speed)
-	: Sprite(LAYER_TANK, type) {
+	: Sprite(_x, _y, LAYER_TANK, type) {
 	widthX = _widthX;
 	widthY = _widthY;
 	dirCur = D_UP;
@@ -19,15 +19,21 @@ inline void TankBase::Show() {
 	//do the cleaning
 	if (posLast.Y == posCur.Y && posLast.X == posCur.X
 		&& dirLast == dirCur)return;
-	auto pos = posLast;
+	Clean();
 	
+	//draw a new frame
+	DrawTank();
+}
+
+void TankBase::Clean() {
+	auto pos = posLast;
+
 	if (dirCur == D_UP || dirCur == D_DOWN) {
 		for (int i = 1; i <= widthY; i++) {
 			SetConsoleCursorPosition(GetStdOHdl(), pos);
 			pos.Y++;
 			for (int j = 1; j <= widthX; j++)
 				wcout << L'　';
-			//putchar('\n');
 		}
 	}
 	else {
@@ -36,19 +42,15 @@ inline void TankBase::Show() {
 			pos.Y++;
 			for (int j = 1; j <= widthY; j++)
 				wcout << L'　';
-			//putchar('\n');
 		}
 	}
-	
-	//draw a new frame
-	DrawTank();
 }
 
-inline int TankBase::GetWidthX()const {
+int TankBase::GetWidthX()const {
 	return widthX;
 }
 
-inline int TankBase::GetWidthY()const {
+int TankBase::GetWidthY()const {
 	return widthY;
 }
 

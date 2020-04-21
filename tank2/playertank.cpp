@@ -40,7 +40,10 @@ inline void PlayerTank::DrawTank() {
 }
 
 inline void PlayerTank::Update() {
-	if (hp <= 0)del = true;
+	if (hp <= 0) {
+		del = true;
+		Clean();
+	}
 	posLast = posCur;
 	dirLast = dirCur;
 	//auto c = getchar();

@@ -2,6 +2,7 @@
 #include<list>
 #include<memory>
 #include<functional>
+#include <windows.h>
 
 class Buffer;
 
@@ -9,15 +10,17 @@ enum SpriteType { S_PLAYER, S_ENEMY, S_PLAYER_BULLET, S_ENEMY_BULLET, S_DESTORYA
 
 class Sprite {
 public:
-	Sprite(int layer = 0, SpriteType type = S_OTHER);
+	Sprite(int x = 0, int y = 0, int layer = 0, SpriteType type = S_OTHER);
 	virtual void Update() = 0;
 	virtual void Show() = 0;
 	int GetLayer()const;
 	SpriteType GetType()const;
+	COORD GetPos()const;
 	bool del;
 	static Buffer* bufferHdl;	//游戏对象池句柄，实现与其它对象的消息传递
 protected:
 	int layer;
+	COORD posCur;
 	SpriteType type;
 };
 

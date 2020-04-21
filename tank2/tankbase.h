@@ -20,10 +20,10 @@ public:
 	int GetWidthY()const;
 	void GetDamage(int damage);
 protected:
+	void Clean();	//clean the drawing
 	Direction dirLast;
 	Direction dirCur;
 	COORD posLast;		//the tank object's position last frame
-	COORD posCur;		//the tank object's position now
 	int hp;
 	int damage;
 	int speed;

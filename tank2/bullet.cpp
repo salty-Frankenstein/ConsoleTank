@@ -2,7 +2,7 @@
 #include"tankbase.h"
 using namespace std;
 Bullet::Bullet(SpriteType type, int _x, int _y, Direction _dir)
-	:Sprite(LAYER_BULLET, type) {
+	:Sprite(_x, _y, LAYER_BULLET, type) {
 	dir = _dir;
 	posCur.X = posLast.X = _x;
 	posCur.Y = posLast.Y = _y;
@@ -26,9 +26,20 @@ void Bullet::Update() {
 		return false;
 	};
 
+	auto isHit = [=](shared_ptr<Sprite> s)->bool {
+		switch (s->GetType()) {
+		case S_ENEMY_BULLET:
+			return IsHit(this->GetPos(), 1, 1, s->GetPos(), 1, 1);
+		case S_ENEMY:
+		case S_PLAYER:
+			auto t = static_cast<TankBase*>(s.get());
+			return IsHit(this->GetPos(), 1, 1, t->GetPos(), t->GetWidthX(), t->GetWidthY());
+		}
+	};
+
 	auto res = bufferHdl->Any(
 		[=](shared_ptr<Sprite> s) -> bool {
-			return isEnemy(s);
+			return isEnemy(s) && isHit(s);
 		}
 	);
 

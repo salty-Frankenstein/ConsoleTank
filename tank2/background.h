@@ -2,6 +2,8 @@
 #include"common.h"
 #include"sprite.h"
 #include<iostream>
+#include<fstream>
+#include<string>
 
 class Background :public Sprite {
 public:

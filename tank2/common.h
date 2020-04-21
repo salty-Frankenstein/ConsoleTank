@@ -49,3 +49,5 @@ public:
 		return (rand() % (b - a + 1)) + a;
 	}
 };
+
+bool IsHit(COORD pos1, int wx1, int wy1, COORD pos2, int wx2, int wy2);

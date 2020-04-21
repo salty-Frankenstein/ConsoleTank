@@ -10,7 +10,6 @@ public:
 	void Update();
 	void Show();
 private:
-	COORD posCur;
 	COORD posLast;
 	Direction dir;
 	const static int SPEED = 1;
