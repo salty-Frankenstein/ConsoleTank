@@ -17,3 +17,9 @@ public:
 	IronWall(int x, int y);
 	void Show();
 };
+
+class BrickWall :public Barrier {
+public:
+	BrickWall(int x, int y);
+	void Show();
+};

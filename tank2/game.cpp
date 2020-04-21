@@ -11,7 +11,7 @@ Game::Game() {
 	wcout.imbue(locale(""));
 	CONSOLE_FONT_INFOEX info = { 0 }; // 以下设置字体
 	info.cbSize = sizeof(info);
-	info.dwFontSize.Y = 12; // leave X as zero
+	info.dwFontSize.Y = 10; // leave X as zero
 	info.FontWeight = FW_NORMAL;
 	wcscpy(info.FaceName, L"Consolas");
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), NULL, &info);
@@ -35,13 +35,22 @@ Game::Game() {
 void Game::Run() {
 	system("cls");
 	buf.Push(make_shared<PlayerTank>());
-	buf.Push(make_shared<EnemyTank>(16, 16, 3, 1, 1));
-	//buf.Push(make_shared<Bullet>(S_PLAYER_BULLET, 36, 36, D_LEFT));
+	for (int i = 1; i <= 3; i++)
+		for (int j = 1; j <= 2; j++)
+			buf.Push(make_shared<EnemyTank>(16 + i * 10, 2 + j * 10, 3, 1, 1));
+	
 	shared_ptr<Background> bg = make_shared<Background>();
 	bg->Draw();
 	buf.Push(bg);
-	for (int i = 1; i <= 10; i++)
-		buf.Push(make_shared<IronWall>(2 * i + 6, 6));
+	for (int i = 1; i <= 45; i++)
+		buf.Push(make_shared<IronWall>(2 * i + 6, 30));
+	for (int i = 4; i <= 45; i++) {
+		buf.Push(make_shared<BrickWall>(2 * i + 6, 40));
+		buf.Push(make_shared<BrickWall>(2 * i + 6, 41));
+	}
+		
+	for (int i = 1; i <= 45; i++)
+		buf.Push(make_shared<IronWall>(2 * i + 6, 50));
 	while (1) {
 		//cout << buf.Size() << endl;
 		buf.Sort();

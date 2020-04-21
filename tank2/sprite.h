@@ -16,6 +16,8 @@ enum SpriteType {
 	S_OTHER
 };
 
+bool IsBarrier(SpriteType t);
+
 class Sprite {
 public:
 	Sprite(int x = 0, int y = 0, int layer = 0, SpriteType type = S_OTHER);

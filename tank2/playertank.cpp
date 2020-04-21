@@ -10,7 +10,7 @@ PlayerTank::PlayerTank()
 	:TankBase(
 		S_PLAYER,
 		PLAYERTANK_X, PLAYERTANK_Y,
-		20, 20,
+		54, 54,
 		PLAYERTANK_HP,
 		PLAYERTANK_DAMAGE,
 		PLAYERTANK_SPEED) {}
@@ -74,27 +74,30 @@ inline void PlayerTank::Update() {
 			break;
 		case 'z':	//发射子弹
 			switch (dirCur){
-			case D_UP:bulPos.X += 2; bulPos.Y--;break;
-			case D_DOWN:bulPos.X += 2; bulPos.Y += 3; break;
-			case D_LEFT:bulPos.X -= 2; bulPos.Y++; break;
-			case D_RIGHT:bulPos.X += 6; bulPos.Y++; break;
+			case D_UP:bulPos.X += 2; break;
+			case D_DOWN:bulPos.X += 2; bulPos.Y += 2; break;
+			case D_LEFT: bulPos.Y++; break;
+			case D_RIGHT:bulPos.X += 4; bulPos.Y++; break;
 			}
-			bufferHdl->Push(make_shared<Bullet>(S_PLAYER_BULLET, bulPos.X, bulPos.Y, dirCur));
+			if (bufferHdl->Any([=](shared_ptr<Sprite> s) {return IsSamePos(bulPos, s->GetPos()); }) == nullptr)
+				bufferHdl->Push(make_shared<Bullet>(S_PLAYER_BULLET, bulPos.X, bulPos.Y, dirCur));
 			break;
 		default: break;
 		}
 	}
-	auto res = bufferHdl->Any(
-		[=](shared_ptr<Sprite> s)->bool {
-		if (s->GetType() == S_UNDESTORYABLE &&
-			IsHit(this->GetPos(), 3, 3, s->GetPos(), 1, 1))
-			return true;
-		if (s->GetType() == S_ENEMY && IsHit(this->GetPos(), 3, 3, s->GetPos(), 3, 3))
-			return true;
-		return false;
+	if (!IsSamePos(posCur, posLast)) {
+		auto res = bufferHdl->Any(
+			[=](shared_ptr<Sprite> s)->bool {
+			if (IsBarrier(s->GetType()) &&
+				IsHit(this->GetPos(), 3, 3, s->GetPos(), 1, 1))
+				return true;
+			if (s->GetType() == S_ENEMY && IsHit(this->GetPos(), 3, 3, s->GetPos(), 3, 3))
+				return true;
+			return false;
 		}
-	);
-	if (res != nullptr) {
-		posCur = posLast;
+		);
+		if (res != nullptr) {
+			posCur = posLast;
+		}
 	}
 }

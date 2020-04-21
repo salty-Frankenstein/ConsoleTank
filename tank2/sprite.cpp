@@ -62,3 +62,7 @@ void Buffer::Map(std::function<void(std::shared_ptr<Sprite>)> map,
 	for (auto i = spriteList.begin(); i != spriteList.end(); i++)
 		if (cond(*i))map(*i);
 }
+
+bool IsBarrier(SpriteType t) {
+	return t == S_DESTORYABLE || t == S_UNDESTORYABLE;
+}

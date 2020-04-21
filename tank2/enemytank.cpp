@@ -53,6 +53,7 @@ void EnemyTank::Update() {
 
 	if (hp <= 0) {
 		del = true;
+		posLast = posCur;
 		Clean();
 	}
 	
@@ -70,31 +71,34 @@ void EnemyTank::Update() {
 	default:GoStraight(); break;
 	}
 
+	if (!IsSamePos(posCur, posLast)) {
+		auto res = bufferHdl->Any(
+			[=](shared_ptr<Sprite> s)->bool {
+			if (IsBarrier(s->GetType()) &&
+				IsHit(this->GetPos(), 3, 3, s->GetPos(), 1, 1))
+				return true;
+			if ((s->GetType() == S_PLAYER || s->GetType() == S_ENEMY && s.get() != this)
+				&& IsHit(this->GetPos(), 3, 3, s->GetPos(), 3, 3))
+				return true;
+			return false;
+		}
+		);
+		if (res != nullptr) {
+			posCur = posLast;
+		}
+	}
+
 	if (randomInt(1, 4) == 1) {
 		auto bulPos = posCur;
 		switch (dirCur) {
-		case D_UP:bulPos.X += 2; bulPos.Y--; break;
-		case D_DOWN:bulPos.X += 2; bulPos.Y += 3; break;
-		case D_LEFT:bulPos.X -= 2; bulPos.Y++; break;
-		case D_RIGHT:bulPos.X += 6; bulPos.Y++; break;
+		case D_UP:bulPos.X += 2; break;
+		case D_DOWN:bulPos.X += 2; bulPos.Y += 2; break;
+		case D_LEFT: bulPos.Y++; break;
+		case D_RIGHT:bulPos.X += 4; bulPos.Y++; break;
 		}
-		bufferHdl->Push(make_shared<Bullet>(S_ENEMY_BULLET, bulPos.X, bulPos.Y, dirCur));
+		if (bufferHdl->Any([=](shared_ptr<Sprite> s) {return IsSamePos(bulPos, s->GetPos()); }) == nullptr)
+			bufferHdl->Push(make_shared<Bullet>(S_ENEMY_BULLET, bulPos.X, bulPos.Y, dirCur));
 	}
-
-	auto res = bufferHdl->Any(
-		[=](shared_ptr<Sprite> s)->bool {
-		if (s->GetType() == S_UNDESTORYABLE &&
-			IsHit(this->GetPos(), 3, 3, s->GetPos(), 1, 1))
-			return true;
-		if (s->GetType() == S_PLAYER && IsHit(this->GetPos(), 3, 3, s->GetPos(), 3, 3))
-			return true;
-		return false;
-	}
-	);
-	if (res != nullptr) {
-		posCur = posLast;
-	}
-
 }
 
 inline void EnemyTank::GoStraight() {

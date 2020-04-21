@@ -10,15 +10,20 @@ Bullet::Bullet(SpriteType type, int _x, int _y, Direction _dir)
 
 void Bullet::Delete() {
 	del = true;
-	SetConsoleCursorPosition(GetStdOHdl(), posCur);
+	SetConsoleCursorPosition(GetStdOHdl(), posLast);
 	wcout << L'　';
 }
 
 void Bullet::Update() {
-	/* 飞出屏幕 */
-	if (posCur.X >= (GRID_X-3)*2 || posCur.Y >= GRID_Y -2 || posCur.X <= 2 || posCur.Y <= 1) {
-		Delete();
+	/* 移动 */
+	posLast = posCur;
+	switch (dir) {
+	case D_UP:posCur.Y--; break;
+	case D_DOWN:posCur.Y++; break;
+	case D_LEFT:posCur.X -= 2; break;
+	case D_RIGHT:posCur.X += 2; break;
 	}
+
 	/* 击中目标 */
 	auto isEnemy = [=](shared_ptr<Sprite> s) -> bool {
 		if (this->GetType() == S_ENEMY_BULLET) {
@@ -26,6 +31,7 @@ void Bullet::Update() {
 			case S_DESTORYABLE:
 			case S_UNDESTORYABLE:
 			case S_PLAYER_BULLET:
+			case S_ENEMY:
 			case S_PLAYER:
 				return true;
 			default:
@@ -67,6 +73,7 @@ void Bullet::Update() {
 
 	if (res != nullptr) {
 		switch (res->GetType()) {
+		case S_DESTORYABLE:
 		case S_ENEMY_BULLET:
 		case S_PLAYER_BULLET:
 			res->del = true;
@@ -79,19 +86,10 @@ void Bullet::Update() {
 		}
 		Delete();
 	}
-
-	/* 移动 */
-	posLast = posCur;
-	switch (dir) {
-	case D_UP:posCur.Y--; break;
-	case D_DOWN:posCur.Y++; break;
-	case D_LEFT:posCur.X -= 2; break;
-	case D_RIGHT:posCur.X += 2; break;
-	}
-	
 }
 
 void Bullet::Show() {
+	if (del)return;
 	if(type == S_PLAYER_BULLET)
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_RED);
 	else SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
