@@ -9,6 +9,7 @@ public:
 	Number(int x, int y, int length);
 	void Show();
 	void Update();
+	void Delete();
 	void SetNumber(int x);
 private:
 	int numberNow;

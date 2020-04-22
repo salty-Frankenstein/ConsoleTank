@@ -10,6 +10,7 @@ public:
 	Barrier(int x, int y, SpriteType type);
 	virtual void Show() = 0;
 	void Update();
+	void Delete();
 };
 
 class IronWall :public Barrier {

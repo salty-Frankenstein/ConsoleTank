@@ -12,5 +12,6 @@ public:
 	void Show();
 	void Update();
 	void Draw();	//drawing for borders
+	void Delete();
 private:
 };

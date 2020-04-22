@@ -10,6 +10,7 @@ public:
 	void Update();
 	void Show();
 	void Delete();
+	Direction GetDirection()const;
 private:
 	COORD posLast;
 	Direction dir;

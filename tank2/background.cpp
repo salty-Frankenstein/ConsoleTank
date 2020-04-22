@@ -9,6 +9,8 @@ void Background::Update() {
 
 }
 
+void Background::Delete() {}
+
 void Background::Draw() {
 	wcout << GetStringN<GRID_X>(L'█') << endl;
 	COORD pos{ 0, 1 };

@@ -84,6 +84,8 @@ void Number::SetNumber(int x) {
 	numberSet = x;
 }
 
+void Number::Delete() {}	//TODO
+
 void Number::Update() {
 	numberNow = 0.5 * (numberNow + numberSet);
 }

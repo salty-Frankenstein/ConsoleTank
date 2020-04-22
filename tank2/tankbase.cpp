@@ -46,6 +46,12 @@ void TankBase::Clean() {
 	}
 }
 
+void TankBase::Delete() {
+	del = true;
+	posLast = posCur;
+	Clean();
+}
+
 int TankBase::GetWidthX()const {
 	return widthX;
 }

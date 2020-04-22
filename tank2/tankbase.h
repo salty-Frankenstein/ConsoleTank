@@ -15,6 +15,7 @@ public:
 		int x, int y, int hp, int damage, int speed);
 	virtual void Update() = 0;		//override: the update method
 	void Show();
+	void Delete();
 	virtual void DrawTank() = 0;	//override: draw the tank appearance
 	int GetWidthX()const;
 	int GetWidthY()const;

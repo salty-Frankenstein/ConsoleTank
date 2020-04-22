@@ -52,18 +52,16 @@ void EnemyTank::Update() {
 	static RandomInt randomInt;
 
 	if (hp <= 0) {
-		del = true;
-		posLast = posCur;
-		Clean();
+		Delete();
 	}
 	
 	/* 控制速度 */
-	if (Game::GetGameTime() % (speed*5) != 0)return;
+	if (Game::GetGameTime() % (20 - speed) != 0)return;
 
 	posLast = posCur;
 	dirLast = dirCur;
 	
-	switch (randomInt(1, 10)) {
+	switch (randomInt(1, 20)) {
 	case 1:dirCur = D_UP; break;
 	case 2:dirCur = D_LEFT; break;
 	case 3:dirCur = D_RIGHT; break;

@@ -26,6 +26,7 @@ public:
 	int GetLayer()const;
 	SpriteType GetType()const;
 	COORD GetPos()const;
+	virtual void Delete() = 0;
 	bool del;
 	static Buffer* bufferHdl;	//游戏对象池句柄，实现与其它对象的消息传递
 protected:

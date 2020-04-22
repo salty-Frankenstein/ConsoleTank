@@ -36,9 +36,10 @@ Game::Game() :score(GRID_X * 2 + 10, 10, 5) {
 void Game::Run() {
 	system("cls");
 	buf.Push(make_shared<PlayerTank>());
+	
 	for (int i = 1; i <= 3; i++)
 		for (int j = 1; j <= 2; j++)
-			buf.Push(make_shared<EnemyTank>(16 + i * 16, 2 + j * 16, 3, 1, 1));
+			buf.Push(make_shared<EnemyTank>(16 + i * 16, 2 + j * 16, 3, 1, 15));
 	
 	shared_ptr<Background> bg = make_shared<Background>();
 	bg->Draw();
@@ -48,6 +49,7 @@ void Game::Run() {
 	for (int i = 4; i <= 45; i++) {
 		buf.Push(make_shared<BrickWall>(2 * i + 6, 40));
 		buf.Push(make_shared<BrickWall>(2 * i + 6, 41));
+		buf.Push(make_shared<BrickWall>(2 * i + 6, 42));
 	}
 		
 	for (int i = 1; i <= 45; i++)

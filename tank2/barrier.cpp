@@ -6,6 +6,12 @@ Barrier::Barrier(int x, int y, SpriteType type)
 
 void Barrier::Update() {}
 
+void Barrier::Delete() {
+	del = true;
+	SetConsoleCursorPosition(GetStdOHdl(), posCur);
+	wcout << L'　';
+}
+
 IronWall::IronWall(int x, int y)
 	: Barrier(x, y, S_UNDESTORYABLE) {}
 

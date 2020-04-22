@@ -44,8 +44,7 @@ inline void PlayerTank::DrawTank() {
 
 inline void PlayerTank::Update() {
 	if (hp <= 0) {
-		del = true;
-		Clean();
+		Delete();
 	}
 	posLast = posCur;
 	dirLast = dirCur;

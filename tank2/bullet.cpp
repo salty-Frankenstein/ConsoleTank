@@ -70,13 +70,27 @@ void Bullet::Update() {
 			return isEnemy(s) && isHit(s);
 		}
 	);
+	
+	auto destoryableHit = [=](shared_ptr<Sprite> s) {
+		if (s->GetType() != S_DESTORYABLE)return false;
+		auto x = this->GetPos(), y = this->GetPos();
+		switch (this->GetDirection()) {
+		case D_UP:case D_DOWN:x.X -= 2; y.X += 2; break;
+		case D_LEFT:case D_RIGHT:x.Y++; y.Y--; break;
+		}
+		return IsSamePos(this->GetPos(), s->GetPos())
+			|| IsSamePos(x, s->GetPos())
+			|| IsSamePos(y, s->GetPos());
+	};
 
 	if (res != nullptr) {
 		switch (res->GetType()) {
 		case S_DESTORYABLE:
+			bufferHdl->Map([](shared_ptr<Sprite> s) {s->Delete(); }, destoryableHit);
+			break;
 		case S_ENEMY_BULLET:
 		case S_PLAYER_BULLET:
-			res->del = true;
+			res->Delete();
 			break;
 		case S_PLAYER:
 		case S_ENEMY:
@@ -98,4 +112,8 @@ void Bullet::Show() {
 	SetConsoleCursorPosition(GetStdOHdl(), posCur);
 	wcout << image;
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+}
+
+Direction Bullet::GetDirection()const {
+	return dir;
 }
