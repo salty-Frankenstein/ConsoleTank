@@ -3,15 +3,16 @@
 using namespace std;
 
 GameTime Game::gameTime = 0;
+int Game::player = 5;
 
-Game::Game() :score(GRID_X * 2 + 10, 10, 5) {
+Game::Game() {
 	//system("chcp 65001");
 	//system("cls");
 	system("mode con cols=160 lines=85");
 	wcout.imbue(locale(""));
 	CONSOLE_FONT_INFOEX info = { 0 }; // 以下设置字体
 	info.cbSize = sizeof(info);
-	info.dwFontSize.Y = 8; // leave X as zero
+	info.dwFontSize.Y = 12; // leave X as zero
 	info.FontWeight = FW_NORMAL;
 	wcscpy(info.FaceName, L"Consolas");
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), NULL, &info);
@@ -23,54 +24,38 @@ Game::Game() :score(GRID_X * 2 + 10, 10, 5) {
 	SetWindowLong(hwnd, GWL_STYLE, (l_WinStyle | WS_POPUP | WS_MAXIMIZE));
 	SetWindowPos(hwnd, HWND_TOP, 0, 0, cx, cy, 0);
 
-	stdoutHdl = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO CursorInfo;
-	GetConsoleCursorInfo(stdoutHdl, &CursorInfo);
+	GetConsoleCursorInfo(GetStdOHdl(), &CursorInfo);
 	CursorInfo.bVisible = false;
-	SetConsoleCursorInfo(stdoutHdl, &CursorInfo);
-
-	Sprite::bufferHdl = &buf;
-	buf.Push(shared_ptr<Number>(&score));
+	SetConsoleCursorInfo(GetStdOHdl(), &CursorInfo);
 }
 
 void Game::Run() {
 	system("cls");
-	buf.Push(make_shared<PlayerTank>());
+	int stage = 1;
+	GameState state = G_MENU;
 	
-	for (int i = 1; i <= 3; i++)
-		for (int j = 1; j <= 2; j++)
-			if (j == 1)buf.Push(make_shared<LightTank>(16 + i * 16, 2 + j * 16));
-			else buf.Push(make_shared<ArmoredCar>(16 + i * 16, 2 + j * 16));
-	
-	for (int i = 1; i <= 3; i++)
-		for (int j = 1; j <= 2; j++)
-			if (j == 1)buf.Push(make_shared<AntiTankGun>(16 + i * 16, 2 + j * 16 - 5));
-			//else buf.Push(make_shared<ArmoredCar>(16 + i * 16, 2 + j * 16));
-
-	shared_ptr<Background> bg = make_shared<Background>();
-	bg->Draw();
-	buf.Push(bg);
-	for (int i = 1; i <= 45; i++)
-		buf.Push(make_shared<IronWall>(2 * i + 6, 30));
-	for (int i = 4; i <= 45; i++) {
-		buf.Push(make_shared<BrickWall>(2 * i + 6, 40));
-		buf.Push(make_shared<BrickWall>(2 * i + 6, 41));
-		buf.Push(make_shared<BrickWall>(2 * i + 6, 42));
-	}
-		
-	for (int i = 1; i <= 45; i++)
-		buf.Push(make_shared<IronWall>(2 * i + 6, 50));
 	while (1) {
-		//cout << buf.Size() << endl;
-		score.SetNumber(gameTime);
-		buf.Sort();
-		buf.Show();
-		buf.Update();
-		Sleep(30);
-		gameTime++;
+		switch (state) {
+		case G_MENU:
+			DrawTitle({ 1,3 });
+			break;
+		case G_GAME:
+			stagePtr = make_shared<Stage>(stage);
+			stagePtr->Run();
+			break;
+		case G_HISCORE:
+			break;
+		case G_EXIT:
+			return;
+		}
 	}
 }
 
 GameTime Game::GetGameTime() {
 	return gameTime;
+}
+
+void Game::AddGameTime() {
+	gameTime++;
 }

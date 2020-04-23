@@ -17,6 +17,7 @@ protected:
 	int shootSpeed;	//0~29
 };
 
+/* 轻型坦克 */
 class LightTank :public EnemyTank {
 public:
 	LightTank(int x, int y);
@@ -27,6 +28,7 @@ private:
 	const static int SHOOT_SPEED = 1;
 };
 
+/* 装甲车 */
 class ArmoredCar :public EnemyTank {
 public:
 	ArmoredCar(int x, int y);
@@ -39,6 +41,8 @@ private:
 	static const std::array<std::array<wchar_t, WIDTH_X>, WIDTH_Y> image;
 };
 
+
+/* 重型坦克 */
 class HeavyTank :public EnemyTank {
 public:
 	HeavyTank(int x, int y);
@@ -49,6 +53,7 @@ private:
 	const static int SHOOT_SPEED = 1;
 };
 
+/* 反坦克炮 */
 class AntiTankGun :public EnemyTank {
 public:
 	AntiTankGun(int x, int y);

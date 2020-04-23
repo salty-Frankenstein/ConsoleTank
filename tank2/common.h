@@ -5,6 +5,7 @@
 #include <windows.h>
 #include <conio.h>
 #include <ctime>
+
 const int GRID_X = 60;
 const int GRID_Y = 60;
 const int REDRAW = 20;	//优化性能用
@@ -54,3 +55,5 @@ public:
 bool IsHit(COORD pos1, int wx1, int wy1, COORD pos2, int wx2, int wy2);
 
 bool IsSamePos(COORD pos1, COORD pos2);
+
+void DrawTitle(COORD pos);

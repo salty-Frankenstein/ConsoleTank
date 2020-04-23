@@ -88,6 +88,8 @@ void Number::Delete() {}	//TODO
 
 void Number::Update() {
 	numberNow = 0.5 * (numberNow + numberSet);
+	if (numberNow < numberSet)numberNow++;
+	else if (numberNow > numberSet)numberNow--;
 }
 
 void Number::Show() {

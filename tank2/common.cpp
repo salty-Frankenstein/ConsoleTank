@@ -1,4 +1,8 @@
 #include"common.h"
+#include <string>
+#include <fstream>
+#include <iostream>
+using namespace std;
 
 HANDLE GetStdOHdl() {
 	static HANDLE stdoutHdl = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -25,4 +29,15 @@ bool IsHit(COORD pos1, int wx1, int wy1, COORD pos2, int wx2, int wy2) {
 
 bool IsSamePos(COORD pos1, COORD pos2) {
 	return pos1.X == pos2.X && pos1.Y == pos2.Y;
+}
+
+void DrawTitle(COORD pos) {
+	ifstream fin(L"logo.txt");
+	while (!fin.eof()) {
+		SetConsolePosition(pos);
+		string s;
+		getline(fin, s);
+		cout << s << endl;
+		pos.Y++;
+	}
 }

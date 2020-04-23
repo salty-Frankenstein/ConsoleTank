@@ -48,6 +48,9 @@
     <ClCompile Include="number.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="stage.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sprite.h">
@@ -81,6 +84,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="number.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stage.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
