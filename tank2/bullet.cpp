@@ -31,7 +31,7 @@ void Bullet::Update() {
 			case S_DESTORYABLE:
 			case S_UNDESTORYABLE:
 			case S_PLAYER_BULLET:
-			case S_ENEMY:
+			//case S_ENEMY:
 			case S_PLAYER:
 				return true;
 			default:

@@ -24,3 +24,5 @@ public:
 	BrickWall(int x, int y);
 	void Show();
 };
+
+

@@ -39,8 +39,14 @@ void Game::Run() {
 	
 	for (int i = 1; i <= 3; i++)
 		for (int j = 1; j <= 2; j++)
-			buf.Push(make_shared<EnemyTank>(16 + i * 16, 2 + j * 16, 3, 1, 15));
+			if (j == 1)buf.Push(make_shared<LightTank>(16 + i * 16, 2 + j * 16));
+			else buf.Push(make_shared<ArmoredCar>(16 + i * 16, 2 + j * 16));
 	
+	for (int i = 1; i <= 3; i++)
+		for (int j = 1; j <= 2; j++)
+			if (j == 1)buf.Push(make_shared<AntiTankGun>(16 + i * 16, 2 + j * 16 - 5));
+			//else buf.Push(make_shared<ArmoredCar>(16 + i * 16, 2 + j * 16));
+
 	shared_ptr<Background> bg = make_shared<Background>();
 	bg->Draw();
 	buf.Push(bg);

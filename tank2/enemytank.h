@@ -1,18 +1,63 @@
 ﻿#pragma once
 #include"tankbase.h"
+#include<array>
 
-/* 轻型坦克 */
+/* 敌方坦克原型 */
 class EnemyTank :public TankBase {
 public:
-	EnemyTank(int x, int y, int hp, int damage, int speed);
+	EnemyTank(int x, int y, int hp, int damage, int speed, int shootSpeed);
 	void Update();
 	void DrawTank();
-protected:
-	void GoStraight();
 	const static int WIDTH_X = 3;
 	const static int WIDTH_Y = 3;
-	static const wchar_t image[WIDTH_X][WIDTH_Y];
-	//const static int HP = 1;
-	//const static int DAMAGE = 1;
-	//const static int SPEED = 1;
+	virtual const std::array<std::array<wchar_t, WIDTH_X>, WIDTH_Y> GetImage();	//有新image的子类重写此函数
+protected:
+	void GoStraight();
+	static const std::array<std::array<wchar_t, WIDTH_X>, WIDTH_Y> image;
+	int shootSpeed;	//0~29
 };
+
+class LightTank :public EnemyTank {
+public:
+	LightTank(int x, int y);
+private:
+	const static int HP = 1;
+	const static int DAMAGE = 1;
+	const static int SPEED = 15;
+	const static int SHOOT_SPEED = 1;
+};
+
+class ArmoredCar :public EnemyTank {
+public:
+	ArmoredCar(int x, int y);
+	const std::array<std::array<wchar_t, WIDTH_X>, WIDTH_Y> GetImage();
+private:
+	const static int HP = 2;
+	const static int DAMAGE = 1;
+	const static int SPEED = 19;
+	const static int SHOOT_SPEED = 1;
+	static const std::array<std::array<wchar_t, WIDTH_X>, WIDTH_Y> image;
+};
+
+class HeavyTank :public EnemyTank {
+public:
+	HeavyTank(int x, int y);
+private:
+	const static int HP = 3;
+	const static int DAMAGE = 1;
+	const static int SPEED = 15;
+	const static int SHOOT_SPEED = 1;
+};
+
+class AntiTankGun :public EnemyTank {
+public:
+	AntiTankGun(int x, int y);
+	const std::array<std::array<wchar_t, WIDTH_X>, WIDTH_Y> GetImage();
+private:
+	const static int HP = 1;
+	const static int DAMAGE = 1;
+	const static int SPEED = 10;
+	const static int SHOOT_SPEED = 15;
+	static const std::array<std::array<wchar_t, WIDTH_X>, WIDTH_Y> image;
+};
+

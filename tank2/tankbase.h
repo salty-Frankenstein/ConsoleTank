@@ -27,7 +27,7 @@ protected:
 	COORD posLast;		//the tank object's position last frame
 	int hp;
 	int damage;
-	int speed;
+	int speed;			//0 ~ 19
 private:
 	int widthX;
 	int widthY;
