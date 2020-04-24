@@ -12,7 +12,7 @@ Game::Game() {
 	wcout.imbue(locale(""));
 	CONSOLE_FONT_INFOEX info = { 0 }; // 以下设置字体
 	info.cbSize = sizeof(info);
-	info.dwFontSize.Y = 12; // leave X as zero
+	info.dwFontSize.Y = 14; // leave X as zero
 	info.FontWeight = FW_NORMAL;
 	wcscpy(info.FaceName, L"Consolas");
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), NULL, &info);
@@ -33,7 +33,7 @@ Game::Game() {
 void Game::Run() {
 	system("cls");
 	int stage = 1;
-	GameState state = G_MENU;
+	GameState state = G_GAME;
 	
 	while (1) {
 		switch (state) {
@@ -41,7 +41,7 @@ void Game::Run() {
 			DrawTitle({ 1,3 });
 			break;
 		case G_GAME:
-			stagePtr = make_shared<Stage>(stage);
+			stagePtr = make_shared<Stage>(stage, M_EASY);
 			stagePtr->Run();
 			break;
 		case G_HISCORE:

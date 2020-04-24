@@ -6,11 +6,16 @@
 #include <conio.h>
 #include <ctime>
 
-const int GRID_X = 60;
-const int GRID_Y = 60;
+const int GRID_X = 42;
+const int GRID_Y = 42;
 const int REDRAW = 20;	//优化性能用
 
 enum Direction { D_UP, D_DOWN, D_LEFT, D_RIGHT };
+enum Mode { 
+	M_EASY = 30, 
+	M_NORMAL = 10, 
+	M_HARD = 10 
+};
 
 HANDLE GetStdOHdl();
 

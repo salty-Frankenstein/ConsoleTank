@@ -6,19 +6,18 @@ const wchar_t PlayerTank::image[PLAYERTANK_X][PLAYERTANK_Y] = {
 { L'█',L'★',L'█' }
 };
 
-PlayerTank::PlayerTank() 
+PlayerTank::PlayerTank(int x, int y)
 	:TankBase(
 		S_PLAYER,
 		PLAYERTANK_X, PLAYERTANK_Y,
-		54, 54,
+		x, y,
 		PLAYERTANK_HP,
 		PLAYERTANK_DAMAGE,
 		PLAYERTANK_SPEED) {}
 
 inline void PlayerTank::DrawTank() {
 	auto pos = posCur;
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 
-		FOREGROUND_RED|FOREGROUND_GREEN);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
 	for (int i = 0; i < PLAYERTANK_Y; i++) {
 		SetConsoleCursorPosition(GetStdOHdl(), pos);
 		pos.Y++;
@@ -48,10 +47,7 @@ inline void PlayerTank::Update() {
 	}
 	posLast = posCur;
 	dirLast = dirCur;
-	//auto c = getchar();
-	//if (c == 'w')posCur.X++;
-	
-	//system("pause");
+
 	auto bulPos = posCur;
 	if (_kbhit()) {
 		switch (_getch()) {

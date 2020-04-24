@@ -1,4 +1,5 @@
 ﻿#include"sprite.h"
+using namespace std;
 
 Buffer* Sprite::bufferHdl = nullptr;
 
@@ -31,17 +32,17 @@ void Buffer::Update() {
 	for (auto i = spriteList.begin(); i != spriteList.end(); i++)
 		(*i)->Update();
 	spriteList.remove_if(
-		[](std::shared_ptr<Sprite> x) -> bool {return x->del; }
+		[](shared_ptr<Sprite> x) -> bool {return x->del; }
 	);
 }
 
-void Buffer::Push(std::shared_ptr<Sprite> s) {
+void Buffer::Push(shared_ptr<Sprite> s) {
 	spriteList.push_back(s);
 }
 
 void Buffer::Sort() {
 	spriteList.sort(
-		[](std::shared_ptr<Sprite> &a, std::shared_ptr<Sprite> &b) {
+		[](shared_ptr<Sprite> &a, shared_ptr<Sprite> &b) {
 			return a->GetLayer() < b->GetLayer();
 		}
 	);
@@ -51,18 +52,30 @@ int Buffer::Size()const {
 	return spriteList.size();
 }
 
-std::shared_ptr<Sprite> Buffer::Any(std::function<bool(std::shared_ptr<Sprite>)> f) {
+shared_ptr<Sprite> Buffer::Any(function<bool(shared_ptr<Sprite>)> f) {
 	for (auto i = spriteList.begin(); i != spriteList.end(); i++)
 		if (f(*i))return *i;
 	return nullptr;
 }
 
-void Buffer::Map(std::function<void(std::shared_ptr<Sprite>)> map,
-	std::function<bool(std::shared_ptr<Sprite>)> cond) {
+void Buffer::Map(function<void(shared_ptr<Sprite>)> map,
+	function<bool(shared_ptr<Sprite>)> cond) {
 	for (auto i = spriteList.begin(); i != spriteList.end(); i++)
 		if (cond(*i))map(*i);
 }
 
+bool IsTank(SpriteType t) {
+	return t == S_ENEMY || t == S_PLAYER;
+}
+
+bool IsTank(shared_ptr<Sprite> s) {
+	return IsTank(s->GetType());
+}
+
 bool IsBarrier(SpriteType t) {
 	return t == S_DESTORYABLE || t == S_UNDESTORYABLE;
+}
+
+bool IsBarrier(shared_ptr<Sprite> s) {
+	return IsBarrier(s->GetType());
 }

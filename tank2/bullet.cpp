@@ -51,12 +51,25 @@ void Bullet::Update() {
 		}
 	};
 
+	auto destoryableHit = [=](shared_ptr<Sprite> s) {
+		if (s->GetType() != S_DESTORYABLE)return false;
+		auto x = this->GetPos(), y = this->GetPos();
+		switch (this->GetDirection()) {
+		case D_UP:case D_DOWN:x.X -= 2; y.X += 2; break;
+		case D_LEFT:case D_RIGHT:x.Y++; y.Y--; break;
+		}
+		return IsSamePos(this->GetPos(), s->GetPos())
+			|| IsSamePos(x, s->GetPos())
+			|| IsSamePos(y, s->GetPos());
+	};
+
 	auto isHit = [=](shared_ptr<Sprite> s)->bool {
 		switch (s->GetType()) {
 		case S_ENEMY_BULLET:
 		case S_UNDESTORYABLE:
-		case S_DESTORYABLE:
 			return IsSamePos(this->GetPos(), s->GetPos());
+		case S_DESTORYABLE:
+			return destoryableHit(s);
 		case S_ENEMY:
 		case S_PLAYER:
 			auto t = static_cast<TankBase*>(s.get());
@@ -70,18 +83,6 @@ void Bullet::Update() {
 			return isEnemy(s) && isHit(s);
 		}
 	);
-	
-	auto destoryableHit = [=](shared_ptr<Sprite> s) {
-		if (s->GetType() != S_DESTORYABLE)return false;
-		auto x = this->GetPos(), y = this->GetPos();
-		switch (this->GetDirection()) {
-		case D_UP:case D_DOWN:x.X -= 2; y.X += 2; break;
-		case D_LEFT:case D_RIGHT:x.Y++; y.Y--; break;
-		}
-		return IsSamePos(this->GetPos(), s->GetPos())
-			|| IsSamePos(x, s->GetPos())
-			|| IsSamePos(y, s->GetPos());
-	};
 
 	if (res != nullptr) {
 		switch (res->GetType()) {
@@ -95,8 +96,7 @@ void Bullet::Update() {
 		case S_PLAYER:
 		case S_ENEMY:
 			static_cast<TankBase*>(res.get())->GetDamage(1);
-		default:
-			break;
+		default:break;
 		}
 		Delete();
 	}
@@ -105,7 +105,7 @@ void Bullet::Update() {
 void Bullet::Show() {
 	if (del)return;
 	if(type == S_PLAYER_BULLET)
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_RED);
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
 	else SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
 	SetConsoleCursorPosition(GetStdOHdl(), posLast);
 	wcout << L'　';

@@ -43,6 +43,6 @@ void Background::Draw() {
 	}
 
 	pos.X = (GRID_X + 1) * 2;
-	pos.Y = GRID_Y - 20;
+	pos.Y = GRID_Y - 17;
 	DrawTitle(pos);
 }

@@ -12,7 +12,7 @@ const int PLAYERTANK_SPEED = 1;
 
 class PlayerTank :public TankBase {
 public:
-	PlayerTank();
+	PlayerTank(int x, int y);
 	void Update();
 	void DrawTank();
 private:

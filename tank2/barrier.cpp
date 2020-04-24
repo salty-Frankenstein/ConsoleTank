@@ -19,7 +19,7 @@ void IronWall::Show() {
 	if (Game::GetGameTime() % REDRAW != 0)return;
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 143);
 	SetConsoleCursorPosition(GetStdOHdl(), posCur);
-	wcout << L'█';
+	wcout << L'■';
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 }
 
@@ -30,6 +30,6 @@ void BrickWall::Show() {
 	if (Game::GetGameTime() % REDRAW != 0)return;
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 96);
 	SetConsoleCursorPosition(GetStdOHdl(), posCur);
-	wcout << L"┼┼";
+	wcout << L"╪╪";
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 }

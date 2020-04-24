@@ -16,8 +16,6 @@ enum SpriteType {
 	S_OTHER
 };
 
-bool IsBarrier(SpriteType t);
-
 class Sprite {
 public:
 	Sprite(int x = 0, int y = 0, int layer = 0, SpriteType type = S_OTHER);
@@ -53,4 +51,7 @@ private:
 	std::list<std::shared_ptr<Sprite>> spriteList;
 };
 
-
+bool IsTank(SpriteType t);
+bool IsTank(std::shared_ptr<Sprite> s);
+bool IsBarrier(SpriteType t);
+bool IsBarrier(std::shared_ptr<Sprite> s);
