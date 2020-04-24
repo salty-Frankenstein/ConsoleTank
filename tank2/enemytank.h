@@ -24,7 +24,7 @@ public:
 private:
 	const static int HP = 1;
 	const static int DAMAGE = 1;
-	const static int SPEED = 15;
+	const static int SPEED = 13;
 	const static int SHOOT_SPEED = 1;
 };
 
@@ -36,7 +36,7 @@ public:
 private:
 	const static int HP = 2;
 	const static int DAMAGE = 1;
-	const static int SPEED = 19;
+	const static int SPEED = 17;
 	const static int SHOOT_SPEED = 1;
 	static const std::array<std::array<wchar_t, WIDTH_X>, WIDTH_Y> image;
 };
@@ -49,7 +49,7 @@ public:
 private:
 	const static int HP = 3;
 	const static int DAMAGE = 1;
-	const static int SPEED = 15;
+	const static int SPEED = 13;
 	const static int SHOOT_SPEED = 1;
 };
 
@@ -61,7 +61,7 @@ public:
 private:
 	const static int HP = 1;
 	const static int DAMAGE = 1;
-	const static int SPEED = 10;
+	const static int SPEED = 8;
 	const static int SHOOT_SPEED = 15;
 	static const std::array<std::array<wchar_t, WIDTH_X>, WIDTH_Y> image;
 };

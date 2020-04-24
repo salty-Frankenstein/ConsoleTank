@@ -49,6 +49,11 @@ void TankBase::Clean() {
 void TankBase::Delete() {
 	del = true;
 	posLast = posCur;
+	if (type == S_ENEMY)Game::enemyKill++;
+	else {
+		Game::player--;
+		Game::playerAlive = false;
+	}
 	Clean();
 }
 

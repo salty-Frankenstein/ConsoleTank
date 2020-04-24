@@ -5,7 +5,15 @@ const wchar_t Background::player[6][6] = {
 	{ L'　',L'　',L'█',L'　',L'　' },
 { L'　',L'　',L'█',L'　',L'　' },
 { L'█',L'█',L'█',L'█',L'█' },
-{ L'█',L'█',L'█' ,L'█',L'█' },
+{ L'█',L'█',L'★' ,L'█',L'█' },
+{ L'█',L'　',L'　',L'　',L'█' },
+};
+
+const wchar_t Background::enemy[6][6] = {
+	{ L'　',L'　',L'█',L'　',L'　' },
+{ L'　',L'　',L'█',L'　',L'　' },
+{ L'█',L'█',L'█',L'█',L'█' },
+{ L'█',L'█',L'卐' ,L'█',L'█' },
 { L'█',L'　',L'　',L'　',L'█' },
 };
 
@@ -32,7 +40,19 @@ void Background::Draw() {
 		bufferHdl->Push(make_shared<IronWall>((GRID_X - 1) * 2, i));
 	}
 
-	pos.X = (GRID_X + 5) * 2;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
+	pos.X = (GRID_X + 4) * 2;
+	pos.Y = 2;
+	SetConsolePosition(pos);
+	for (int i = 0; i < 5; i++) {
+		SetConsolePosition(pos);
+		for (int j = 0; j < 5; j++)
+			wcout << enemy[i][j];
+		pos.Y++;
+	}
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+	pos.X = (GRID_X + 4) * 2;
 	pos.Y = GRID_Y - 30;
 	SetConsolePosition(pos);
 	for (int i = 0; i < 5; i++) {
@@ -42,6 +62,7 @@ void Background::Draw() {
 		pos.Y++;
 	}
 
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 	pos.X = (GRID_X + 1) * 2;
 	pos.Y = GRID_Y - 17;
 	DrawTitle(pos);

@@ -95,7 +95,7 @@ void Bullet::Update() {
 			break;
 		case S_PLAYER:
 		case S_ENEMY:
-			static_cast<TankBase*>(res.get())->GetDamage(1);
+			static_cast<TankBase*>(res.get())->GetDamage(1); break;
 		default:break;
 		}
 		Delete();

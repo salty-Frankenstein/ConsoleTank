@@ -3,7 +3,11 @@
 using namespace std;
 
 GameTime Game::gameTime = 0;
-int Game::player = 5;
+int Game::player = 0;
+int Game::enemyMax = 0;
+int Game::enemyNow = 0;
+int Game::enemyKill = 0;
+bool Game::playerAlive = true;
 
 Game::Game() {
 	//system("chcp 65001");

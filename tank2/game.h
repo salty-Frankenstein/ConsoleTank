@@ -13,10 +13,11 @@ public:
 	static GameTime GetGameTime();
 	static void AddGameTime();
 	static int player;
+	static int enemyNow;
+	static int enemyMax;
+	static int enemyKill;
+	static bool playerAlive;
 private:
 	std::shared_ptr<Stage> stagePtr;
-	//Number score;
-	//Number playerNum;
-	//Buffer buf;
 	static GameTime gameTime;
 };

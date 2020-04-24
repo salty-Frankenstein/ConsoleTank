@@ -15,4 +15,5 @@ public:
 	void Delete();
 private:
 	const static wchar_t player[6][6];
+	const static wchar_t enemy[6][6];
 };

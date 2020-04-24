@@ -14,6 +14,7 @@ private:
 	std::shared_ptr<Number> score;
 	std::shared_ptr<Number> playerNum;
 	std::list<COORD> enemyPoint;
+	COORD playerPoint;
 	Buffer buf;
 	Mode mode;
 };
