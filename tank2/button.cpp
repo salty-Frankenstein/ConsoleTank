@@ -1,4 +1,4 @@
-#include"button.h"
+ï»¿#include"button.h"
 #include<iostream>
 using namespace std;
 
@@ -20,13 +20,4 @@ void Button::Update() {}
 
 void Button::Delete() {
 	del = true;
-	//SetConsoleCursorPosition(GetStdOHdl(), posCur);
-	//wcout << L'¡¡';
 }
-
-void Button::Press() {
-	if (isActive) {
-		Delete();
-	}
-}
-

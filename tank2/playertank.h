@@ -10,6 +10,7 @@ const int PLAYERTANK_HP = 1;
 const int PLAYERTANK_DAMAGE = 1;
 const int PLAYERTANK_SPEED = 1;
 
+/* 玩家的坦克 */
 class PlayerTank :public TankBase {
 public:
 	PlayerTank(int x, int y);

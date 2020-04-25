@@ -84,9 +84,10 @@ void Number::SetNumber(int x) {
 	numberSet = x;
 }
 
-void Number::Delete() {}	//TODO
+void Number::Delete() {}
 
 void Number::Update() {
+	/* 数字滚动效果 */
 	numberNow = 0.5 * (numberNow + numberSet);
 	if (numberNow < numberSet)numberNow++;
 	else if (numberNow > numberSet)numberNow--;

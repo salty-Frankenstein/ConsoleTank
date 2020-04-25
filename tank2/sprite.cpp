@@ -77,7 +77,7 @@ bool IsTank(shared_ptr<Sprite> s) {
 }
 
 bool IsBarrier(SpriteType t) {
-	return t == S_DESTORYABLE || t == S_UNDESTORYABLE;
+	return t == S_DESTORYABLE || t == S_UNDESTORYABLE || t == S_ACCESSIBLE;
 }
 
 bool IsBarrier(shared_ptr<Sprite> s) {

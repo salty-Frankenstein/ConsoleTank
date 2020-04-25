@@ -48,6 +48,7 @@ inline void PlayerTank::Update() {
 	posLast = posCur;
 	dirLast = dirCur;
 
+	/* 键盘事件 */
 	auto bulPos = posCur;
 	if (_kbhit()) {
 		switch (_getch()) {
@@ -74,6 +75,7 @@ inline void PlayerTank::Update() {
 			case D_LEFT: bulPos.Y++; break;
 			case D_RIGHT:bulPos.X += 4; bulPos.Y++; break;
 			}
+			/* 如果炮口没有堵上 */
 			if (bufferHdl->Any([=](shared_ptr<Sprite> s) {return IsSamePos(bulPos, s->GetPos()); }) == nullptr)
 				bufferHdl->Push(make_shared<Bullet>(S_PLAYER_BULLET, bulPos.X, bulPos.Y, dirCur));
 			break;
@@ -81,6 +83,7 @@ inline void PlayerTank::Update() {
 		}
 	}
 	if (!IsSamePos(posCur, posLast)) {
+		/* 判断新位置是否有其他坦克或障碍物 */
 		auto res = bufferHdl->Any(
 			[=](shared_ptr<Sprite> s)->bool {
 			if (IsBarrier(s->GetType()) &&
@@ -91,6 +94,7 @@ inline void PlayerTank::Update() {
 			return false;
 		}
 		);
+		/* 如果有则不移动 */
 		if (res != nullptr) {
 			posCur = posLast;
 		}

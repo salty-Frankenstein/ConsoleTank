@@ -4,8 +4,11 @@ using namespace std;
 
 Stage::Stage(int no, Mode _mode) {
 	Sprite::bufferHdl = &buf;
-	score = make_shared<Number>((GRID_X + 11) * 2, 2, 2);
-	playerNum = make_shared<Number>((GRID_X + 11) * 2, GRID_Y - 30, 2);
+	stageNum = make_shared<Number>((GRID_X + 11) * 2, 2, 2);
+	stageNum->SetNumber(no);
+	score = make_shared<Number>((GRID_X + 11) * 2, 10, 2);
+	playerNum = make_shared<Number>((GRID_X + 11) * 2, 18, 2);
+	buf.Push(stageNum);
 	buf.Push(score);
 	buf.Push(playerNum);
 	Game::playerAlive = false;
@@ -27,11 +30,12 @@ void Stage::Run() {
 	while (Game::state == G_GAME) {
 		score->SetNumber(Game::enemyMax - Game::enemyKill);
 		playerNum->SetNumber(Game::player);
+		/* 玩家重生 */
 		if (!Game::playerAlive) {
 			buf.Push(make_shared<PlayerTank>(playerPoint.X, playerPoint.Y));
 			Game::playerAlive = true;
 		}
-		AddEnemy();
+		AddEnemy();	//刷新敌人
 		buf.Sort();
 		buf.Show();
 		buf.Update();
@@ -47,7 +51,7 @@ void Stage::Run() {
 
 }
 
-void Stage::LoadStage(int no) {
+void Stage::LoadStage(int no) {	//读取关卡文件
 	string file = "./stage/" + to_string(no) + ".txt";
 	ifstream fin(file);
 	fin >> Game::enemyMax;
@@ -58,9 +62,10 @@ void Stage::LoadStage(int no) {
 	for (SHORT i = 1; i <= GRID_Y-2; i++) {
 		getline(fin, s);
 		for (SHORT j = 1; j <= GRID_X - 2; j++) {
-			switch (s[j]) {
+			switch (s[j]) {	//在对象池添加相应对象
 			case '#':buf.Push(make_shared<BrickWall>(2 * j, i)); break;
 			case '=':buf.Push(make_shared<IronWall>(2 * j, i)); break;
+			case '~':buf.Push(make_shared<WaterWall>(2 * j, i)); break;
 			case 'P':playerPoint = { 2 * j, i }; break;
 			case 'E':enemyPoint.push_back({ 2 * j, i }); break;
 			case 'B':buf.Push(make_shared<PlayerBase>(2 * j, i)); break;
@@ -73,6 +78,7 @@ void Stage::LoadStage(int no) {
 void Stage::AddEnemy() {
 	static RandomInt randomInt;
 	for (auto i = enemyPoint.begin(); i != enemyPoint.end(); i++) {
+		/* 判断还有敌人没有生成，且生成点上没有其他对象 */
 		if (Game::enemyMax - Game::enemyNow > 0 && Game::GetGameTime() % 10 == 0 && randomInt(1, mode) == 1
 			&& buf.Any([=](shared_ptr<Sprite> s) { return IsTank(s) && IsHit(*i, 3, 3, s->GetPos(), 3, 3); }) == nullptr) {
 			switch (randomInt(1,4)) {

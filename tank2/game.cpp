@@ -2,6 +2,7 @@
 #include "game.h"
 using namespace std;
 
+Mode Game::gameMode = M_EASY;
 GameTime Game::gameTime = 0;
 int Game::player = 0;
 int Game::enemyMax = 0;
@@ -11,8 +12,6 @@ bool Game::playerAlive = true;
 GameState Game::state = G_MENU;
 
 Game::Game() {
-	//system("chcp 65001");
-	//system("cls");
 	system("mode con cols=160 lines=85");
 	wcout.imbue(locale(""));
 
@@ -31,7 +30,8 @@ Game::Game() {
 
 void Game::Run() {
 	system("cls");
-	
+
+	/* 游戏主流程状态机 */
 	while (state != G_EXIT) {
 		switch (state) {
 		case G_MENU:
@@ -39,7 +39,7 @@ void Game::Run() {
 			break;
 		case G_GAME:
 			for (int stage = 1; stage <= MAX_STAGE; stage++) {
-				stagePtr = make_shared<Stage>(stage, M_EASY);
+				stagePtr = make_shared<Stage>(stage, gameMode);
 				stagePtr->Run();
 			}
 			state = G_WIN;

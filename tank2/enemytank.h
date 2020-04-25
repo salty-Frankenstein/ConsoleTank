@@ -32,7 +32,7 @@ private:
 class ArmoredCar :public EnemyTank {
 public:
 	ArmoredCar(int x, int y);
-	const std::array<std::array<wchar_t, WIDTH_X>, WIDTH_Y> GetImage();
+	const std::array<std::array<wchar_t, WIDTH_X>, WIDTH_Y> GetImage()override;
 private:
 	const static int HP = 2;
 	const static int DAMAGE = 1;
@@ -57,7 +57,7 @@ private:
 class AntiTankGun :public EnemyTank {
 public:
 	AntiTankGun(int x, int y);
-	const std::array<std::array<wchar_t, WIDTH_X>, WIDTH_Y> GetImage();
+	const std::array<std::array<wchar_t, WIDTH_X>, WIDTH_Y> GetImage()override;
 private:
 	const static int HP = 1;
 	const static int DAMAGE = 1;

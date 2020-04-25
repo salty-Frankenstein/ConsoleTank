@@ -13,16 +13,18 @@ public:
 	void Run();
 	static GameTime GetGameTime();
 	static void AddGameTime();
+
+	/* 游戏逻辑全局量 */
+	static Mode gameMode;
 	static int player;
 	static int enemyNow;
 	static int enemyMax;
 	static int enemyKill;
 	static bool playerAlive;
-	static const int MAX_STAGE = 1;
 	static GameState state;
+	static const int MAX_STAGE = 2;
 private:
 	std::shared_ptr<Stage> stagePtr;
 	Menu menu;
 	static GameTime gameTime;
-	
 };

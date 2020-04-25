@@ -58,6 +58,7 @@ void EnemyTank::Update() {
 		posLast = posCur;
 		dirLast = dirCur;
 
+		/* 移动 */
 		switch (randomInt(1, 20)) {
 		case 1:dirCur = D_UP; break;
 		case 2:dirCur = D_LEFT; break;
@@ -66,24 +67,28 @@ void EnemyTank::Update() {
 		default:GoStraight(); break;
 		}
 
+		/* 如果移动位置 */
 		if (!IsSamePos(posCur, posLast)) {
+			/* 判断新位置是否有其他坦克或障碍物 */
 			auto res = bufferHdl->Any(
 				[=](shared_ptr<Sprite> s)->bool {
-				if (IsBarrier(s->GetType()) &&
-					IsHit(this->GetPos(), 3, 3, s->GetPos(), 1, 1))
-					return true;
-				if ((s->GetType() == S_PLAYER || s->GetType() == S_ENEMY && s.get() != this)
-					&& IsHit(this->GetPos(), 3, 3, s->GetPos(), 3, 3))
-					return true;
-				return false;
-			}
+					if (IsBarrier(s->GetType()) &&
+						IsHit(this->GetPos(), 3, 3, s->GetPos(), 1, 1))
+						return true;
+					if ((IsTank(s) && s.get() != this)
+						&& IsHit(this->GetPos(), 3, 3, s->GetPos(), 3, 3))
+						return true;
+					return false;
+				}
 			);
+			/* 如果有则不移动 */
 			if (res != nullptr) {
 				posCur = posLast;
 			}
 		}
 	}
 
+	/* 发射子弹 */
 	if (Game::GetGameTime() % 10 != 0 && randomInt(1, 30 - shootSpeed) == 1) {
 		auto bulPos = posCur;
 		switch (dirCur) {
@@ -92,6 +97,7 @@ void EnemyTank::Update() {
 		case D_LEFT: bulPos.Y++; break;
 		case D_RIGHT:bulPos.X += 4; bulPos.Y++; break;
 		}
+		/* 如果炮口没有堵上 */
 		if (bufferHdl->Any([=](shared_ptr<Sprite> s) {return IsSamePos(bulPos, s->GetPos()); }) == nullptr)
 			bufferHdl->Push(make_shared<Bullet>(S_ENEMY_BULLET, bulPos.X, bulPos.Y, dirCur));
 	}

@@ -4,6 +4,7 @@
 
 const int LAYER_BULLET = 3;
 
+/* 子弹类，可以实例化为玩家或敌人的子弹 */
 class Bullet :public Sprite {
 public:
 	Bullet(SpriteType type, int x, int y, Direction dir);

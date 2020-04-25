@@ -7,10 +7,12 @@
 #include <ctime>
 #include <string>
 
+/* 地图长宽 */
 const int GRID_X = 42;
 const int GRID_Y = 42;
 const int REDRAW = 20;	//优化性能用
 
+/* 依赖路径常量 */
 const char* const LOGO_PATH = "./logo/logo.txt";
 const char* const GAMEOVER_PATH = "./logo/gameover.txt";
 const char* const WIN_PATH = "./logo/win.txt";
@@ -22,8 +24,10 @@ enum Mode {
 	M_HARD = 10 
 };
 
+/* 获取标准输出句柄 */
 HANDLE GetStdOHdl();
 
+/* 设置标准输出位置 */
 void SetConsolePosition(COORD pos);
 
 /* (编译期)生成全为C的宽字符数组 */
@@ -62,10 +66,13 @@ public:
 	}
 };
 
+/* 判断两个矩形是否相交 */
 bool IsHit(COORD pos1, int wx1, int wy1, COORD pos2, int wx2, int wy2);
 
 bool IsSamePos(COORD pos1, COORD pos2);
 
+/* 绘制字符文件 */
 void DrawTitle(COORD pos, std::string file);
 
+/* 设置控制台字符大小 */
 void SetFontSize(int x);

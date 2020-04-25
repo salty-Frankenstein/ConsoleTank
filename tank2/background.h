@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include"common.h"
 #include"sprite.h"
 #include"barrier.h"
@@ -7,6 +7,7 @@
 #include<fstream>
 #include<string>
 
+/* 游戏静态背景 */
 class Background :public Sprite {
 public:
 	void Show();

@@ -13,16 +13,18 @@ enum SpriteType {
 	S_ENEMY_BULLET,
 	S_DESTORYABLE,
 	S_UNDESTORYABLE,
+	S_ACCESSIBLE,
 	S_PLAYER_BASE,
 	S_OTHER
 };
 
+/* 游戏对象的基类 */
 class Sprite {
 public:
 	Sprite(int x = 0, int y = 0, int layer = 0, SpriteType type = S_OTHER);
-	virtual void Update() = 0;
-	virtual void Show() = 0;
-	virtual void Delete() = 0;
+	virtual void Update() = 0;	//更新方法，每帧调用一次
+	virtual void Show() = 0;	//显示方法，每帧调用一次
+	virtual void Delete() = 0;	//删除方法，游戏对象消亡时调用
 	int GetLayer()const;
 	SpriteType GetType()const;
 	COORD GetPos()const;
@@ -35,12 +37,13 @@ protected:
 	SpriteType type;
 };
 
+/* 游戏对象缓存，对游戏对象统一管理 */
 class Buffer {
 public:
-	void Update();
-	void Show();
+	void Update();	//更新buffer中所有对象
+	void Show();	//显示buffer中所有对象
 	void Push(std::shared_ptr<Sprite> s);
-	void Sort();
+	void Sort();	//按游戏对象图层排序
 	int Size()const;
 	/* Any: 传入条件函数，如果buffer中存在元素满足，返回指针，否则返回nullptr */
 	std::shared_ptr<Sprite> Any(std::function<bool(std::shared_ptr<Sprite>)>);

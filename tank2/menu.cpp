@@ -3,8 +3,10 @@
 using namespace std;
 
 Menu::Menu() {
-	buttons[M_GAMESTART] = make_shared<Button>(35, 20, "GAME START");
-	buttons[M_EXIT] = make_shared<Button>(35, 24, "EXIT");
+	buttons[B_EASY] = make_shared<Button>(35, 20, "EASY");
+	buttons[B_NORMAL] = make_shared<Button>(35, 24, "NORMAL");
+	buttons[B_HARD] = make_shared<Button>(35, 28, "HARD");
+	buttons[B_EXIT] = make_shared<Button>(35, 32, "EXIT");
 	for (int i = 0; i < BUTTON_NUM; i++)
 		buf.Push(buttons[i]);
 	nowActive = 0;
@@ -21,12 +23,14 @@ void Menu::Run() {
 		buf.Show();
 		if (_kbhit()) {
 			switch (_getch()) {
-			case 72:nowActive = (nowActive + 1) % 2; break;
-			case 80:nowActive = (nowActive + BUTTON_NUM - 1) % 2; break;
+			case 72:nowActive = (nowActive + BUTTON_NUM - 1) % BUTTON_NUM; break;
+			case 80:nowActive = (nowActive + 1) % BUTTON_NUM; break;
 			case 'z':
 				switch (MenuButton(nowActive)) {
-				case M_GAMESTART:Game::state = G_GAME; break;
-				case M_EXIT:Game::state = G_EXIT; break;
+				case B_EASY:Game::gameMode = M_EASY; Game::state = G_GAME; break;
+				case B_NORMAL:Game::gameMode = M_NORMAL; Game::state = G_GAME; break;
+				case B_HARD:Game::gameMode = M_HARD; Game::state = G_GAME; break;
+				case B_EXIT:Game::state = G_EXIT; break;
 				}
 				break;
 			default: break;

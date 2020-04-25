@@ -6,9 +6,9 @@
 #include <cstdio>
 #include <iostream>
 
-
 const int LAYER_TANK = 3;
-/* base class for tank objects */
+
+/* 坦克基类 */
 class TankBase :public Sprite {
 public:
 	TankBase(SpriteType type, int widthX, int widthY, 
@@ -24,7 +24,7 @@ protected:
 	void Clean();	//clean the drawing
 	Direction dirLast;
 	Direction dirCur;
-	COORD posLast;		//the tank object's position last frame
+	COORD posLast;		//上一帧的位置
 	int hp;
 	int damage;
 	int speed;			//0 ~ 19
