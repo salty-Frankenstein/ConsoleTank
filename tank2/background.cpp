@@ -40,7 +40,7 @@ void Background::Draw() {
 		bufferHdl->Push(make_shared<IronWall>((GRID_X - 1) * 2, i));
 	}
 
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
+	SetConsoleTextAttribute(GetStdOHdl(), FOREGROUND_RED);
 	pos.X = (GRID_X + 4) * 2;
 	pos.Y = 2;
 	SetConsolePosition(pos);
@@ -51,7 +51,7 @@ void Background::Draw() {
 		pos.Y++;
 	}
 
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+	SetConsoleTextAttribute(GetStdOHdl(), 14);
 	pos.X = (GRID_X + 4) * 2;
 	pos.Y = GRID_Y - 30;
 	SetConsolePosition(pos);
@@ -62,8 +62,8 @@ void Background::Draw() {
 		pos.Y++;
 	}
 
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+	SetConsoleTextAttribute(GetStdOHdl(), 7);
 	pos.X = (GRID_X + 1) * 2;
 	pos.Y = GRID_Y - 17;
-	DrawTitle(pos);
+	DrawTitle(pos, LOGO_PATH);
 }

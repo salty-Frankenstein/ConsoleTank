@@ -17,7 +17,7 @@ PlayerTank::PlayerTank(int x, int y)
 
 inline void PlayerTank::DrawTank() {
 	auto pos = posCur;
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+	SetConsoleTextAttribute(GetStdOHdl(), 14);
 	for (int i = 0; i < PLAYERTANK_Y; i++) {
 		SetConsoleCursorPosition(GetStdOHdl(), pos);
 		pos.Y++;
@@ -38,7 +38,7 @@ inline void PlayerTank::DrawTank() {
 			}
 		}
 	}
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+	SetConsoleTextAttribute(GetStdOHdl(), 7);
 }
 
 inline void PlayerTank::Update() {

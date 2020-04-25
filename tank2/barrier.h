@@ -25,4 +25,9 @@ public:
 	void Show();
 };
 
-
+class PlayerBase :public Barrier {
+public:
+	PlayerBase(int x, int y);
+	void Show();
+	void Delete()override;
+};

@@ -18,15 +18,9 @@ const array<array<wchar_t, EnemyTank::WIDTH_X>, EnemyTank::WIDTH_Y> EnemyTank::G
 void EnemyTank::DrawTank() {
 	auto pos = posCur;
 	switch (hp) {
-	case 1:
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-		break;
-	case 2:
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);
-		break;
-	default:
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
-		break;
+	case 1:SetConsoleTextAttribute(GetStdOHdl(), 7); break;
+	case 2:SetConsoleTextAttribute(GetStdOHdl(), FOREGROUND_GREEN); break;
+	default:SetConsoleTextAttribute(GetStdOHdl(), FOREGROUND_RED); break;
 	}
 	for (int i = 0; i < WIDTH_Y; i++) {
 		SetConsoleCursorPosition(GetStdOHdl(), pos);
@@ -48,7 +42,7 @@ void EnemyTank::DrawTank() {
 			}
 		}
 	}
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+	SetConsoleTextAttribute(GetStdOHdl(), 7);
 }
 
 /* 坦克移动AI */

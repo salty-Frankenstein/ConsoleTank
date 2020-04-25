@@ -13,6 +13,7 @@ enum SpriteType {
 	S_ENEMY_BULLET,
 	S_DESTORYABLE,
 	S_UNDESTORYABLE,
+	S_PLAYER_BASE,
 	S_OTHER
 };
 
@@ -25,9 +26,10 @@ public:
 	int GetLayer()const;
 	SpriteType GetType()const;
 	COORD GetPos()const;
-	bool del;
+	bool IsDeleted()const;
 	static Buffer* bufferHdl;	//游戏对象池句柄，实现与其它对象的消息传递
 protected:
+	bool del;
 	int layer;
 	COORD posCur;
 	SpriteType type;

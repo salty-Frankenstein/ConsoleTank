@@ -32,8 +32,8 @@ bool IsSamePos(COORD pos1, COORD pos2) {
 	return pos1.X == pos2.X && pos1.Y == pos2.Y;
 }
 
-void DrawTitle(COORD pos) {
-	ifstream fin(L"logo.txt");
+void DrawTitle(COORD pos, string file) {
+	ifstream fin(file);
 	while (!fin.eof()) {
 		SetConsolePosition(pos);
 		string s;
@@ -49,5 +49,5 @@ void SetFontSize(int x) {
 	info.dwFontSize.Y = x; // leave X as zero
 	info.FontWeight = FW_NORMAL;
 	wcscpy(info.FaceName, L"Consolas");
-	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), NULL, &info);
+	SetCurrentConsoleFontEx(GetStdOHdl(), NULL, &info);
 }

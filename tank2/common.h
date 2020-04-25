@@ -5,10 +5,15 @@
 #include <windows.h>
 #include <conio.h>
 #include <ctime>
+#include <string>
 
 const int GRID_X = 42;
 const int GRID_Y = 42;
 const int REDRAW = 20;	//优化性能用
+
+const char* const LOGO_PATH = "./logo/logo.txt";
+const char* const GAMEOVER_PATH = "./logo/gameover.txt";
+const char* const WIN_PATH = "./logo/win.txt";
 
 enum Direction { D_UP, D_DOWN, D_LEFT, D_RIGHT };
 enum Mode { 
@@ -61,6 +66,6 @@ bool IsHit(COORD pos1, int wx1, int wy1, COORD pos2, int wx2, int wy2);
 
 bool IsSamePos(COORD pos1, COORD pos2);
 
-void DrawTitle(COORD pos);
+void DrawTitle(COORD pos, std::string file);
 
 void SetFontSize(int x);

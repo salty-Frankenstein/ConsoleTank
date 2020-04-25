@@ -26,6 +26,7 @@ void Bullet::Update() {
 
 	/* 击中目标 */
 	auto isEnemy = [=](shared_ptr<Sprite> s) -> bool {
+		if (s->GetType() == S_PLAYER_BASE)return true;
 		if (this->GetType() == S_ENEMY_BULLET) {
 			switch (s->GetType()) {
 			case S_DESTORYABLE:
@@ -65,6 +66,8 @@ void Bullet::Update() {
 
 	auto isHit = [=](shared_ptr<Sprite> s)->bool {
 		switch (s->GetType()) {
+		case S_PLAYER_BASE:
+			return IsHit(this->GetPos(), 1, 1, s->GetPos(), 3, 3);
 		case S_ENEMY_BULLET:
 		case S_UNDESTORYABLE:
 			return IsSamePos(this->GetPos(), s->GetPos());
@@ -89,6 +92,7 @@ void Bullet::Update() {
 		case S_DESTORYABLE:
 			bufferHdl->Map([](shared_ptr<Sprite> s) {s->Delete(); }, destoryableHit);
 			break;
+		case S_PLAYER_BASE:
 		case S_ENEMY_BULLET:
 		case S_PLAYER_BULLET:
 			res->Delete();
@@ -105,13 +109,13 @@ void Bullet::Update() {
 void Bullet::Show() {
 	if (del)return;
 	if(type == S_PLAYER_BULLET)
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-	else SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
+		SetConsoleTextAttribute(GetStdOHdl(), 14);
+	else SetConsoleTextAttribute(GetStdOHdl(), FOREGROUND_RED);
 	SetConsoleCursorPosition(GetStdOHdl(), posLast);
 	wcout << L'　';
 	SetConsoleCursorPosition(GetStdOHdl(), posCur);
 	wcout << image;
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+	SetConsoleTextAttribute(GetStdOHdl(), 7);
 }
 
 Direction Bullet::GetDirection()const {

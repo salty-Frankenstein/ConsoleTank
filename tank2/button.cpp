@@ -10,10 +10,10 @@ Button::Button(int x, int y, string _name)
 
 void Button::Show() {
 	SetConsoleCursorPosition(GetStdOHdl(), posCur);
-	if (isActive)SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 71);
-	else SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+	if (isActive)SetConsoleTextAttribute(GetStdOHdl(), 71);
+	else SetConsoleTextAttribute(GetStdOHdl(), 7);
 	cout << name;
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+	SetConsoleTextAttribute(GetStdOHdl(), 7);
 }
 
 void Button::Update() {}

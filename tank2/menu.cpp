@@ -13,8 +13,8 @@ Menu::Menu() {
 void Menu::Run() {
 	SetFontSize(20);
 	system("cls");
-	DrawTitle({ 10,2 });
-	while (1) {
+	DrawTitle({ 10,2 }, LOGO_PATH);
+	while (Game::state == G_MENU) {
 		for (int i = 0; i < BUTTON_NUM; i++)
 			if (i == nowActive)buttons[i]->isActive = true;
 			else buttons[i]->isActive = false;
@@ -25,8 +25,8 @@ void Menu::Run() {
 			case 80:nowActive = (nowActive + BUTTON_NUM - 1) % 2; break;
 			case 'z':
 				switch (MenuButton(nowActive)) {
-				case M_GAMESTART:Game::state = G_GAME; return;
-				case M_EXIT:Game::state = G_EXIT; return;
+				case M_GAMESTART:Game::state = G_GAME; break;
+				case M_EXIT:Game::state = G_EXIT; break;
 				}
 				break;
 			default: break;

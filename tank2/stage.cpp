@@ -9,7 +9,7 @@ Stage::Stage(int no, Mode _mode) {
 	buf.Push(score);
 	buf.Push(playerNum);
 	Game::playerAlive = false;
-	Game::player = 1;
+	Game::player = 5;
 	Game::enemyNow = 0;
 	Game::enemyMax = 0;
 	Game::enemyKill = 0;
@@ -24,7 +24,7 @@ void Stage::Run() {
 	bg->Draw();
 	buf.Push(bg);
 
-	while (1) {
+	while (Game::state == G_GAME) {
 		score->SetNumber(Game::enemyMax - Game::enemyKill);
 		playerNum->SetNumber(Game::player);
 		if (!Game::playerAlive) {
@@ -37,9 +37,10 @@ void Stage::Run() {
 		buf.Update();
 
 		if (Game::player == 0) {
-			Game::state = G_MENU;
-			return;
+			Game::state = G_GAMEOVER;
 		}
+		if (Game::enemyMax == Game::enemyKill)
+			return;
 		Sleep(20);
 		Game::AddGameTime();
 	}
@@ -62,6 +63,7 @@ void Stage::LoadStage(int no) {
 			case '=':buf.Push(make_shared<IronWall>(2 * j, i)); break;
 			case 'P':playerPoint = { 2 * j, i }; break;
 			case 'E':enemyPoint.push_back({ 2 * j, i }); break;
+			case 'B':buf.Push(make_shared<PlayerBase>(2 * j, i)); break;
 			default:break;
 			}
 		}

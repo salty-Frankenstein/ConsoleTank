@@ -17,10 +17,10 @@ IronWall::IronWall(int x, int y)
 
 void IronWall::Show() {
 	if (Game::GetGameTime() % REDRAW != 0)return;
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 143);
+	SetConsoleTextAttribute(GetStdOHdl(), 143);
 	SetConsoleCursorPosition(GetStdOHdl(), posCur);
 	wcout << L'■';
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+	SetConsoleTextAttribute(GetStdOHdl(), 7);
 }
 
 BrickWall::BrickWall(int x, int y)
@@ -28,8 +28,35 @@ BrickWall::BrickWall(int x, int y)
 
 void BrickWall::Show() {
 	if (Game::GetGameTime() % REDRAW != 0)return;
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 96);
+	SetConsoleTextAttribute(GetStdOHdl(), 96);
 	SetConsoleCursorPosition(GetStdOHdl(), posCur);
 	wcout << L"╪╪";
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+	SetConsoleTextAttribute(GetStdOHdl(), 7);
+}
+
+PlayerBase::PlayerBase(int x, int y)
+	:Barrier(x, y, S_PLAYER_BASE) {}
+
+void PlayerBase::Show() {
+	auto pos = posCur;
+	if (Game::GetGameTime() % REDRAW != 0)return;
+	SetConsoleCursorPosition(GetStdOHdl(), pos);
+	wcout << L"　◇　";
+	pos.Y++;
+	SetConsoleCursorPosition(GetStdOHdl(), pos);
+	wcout << L"◆○◆";
+	pos.Y++;
+	SetConsoleCursorPosition(GetStdOHdl(), pos);
+	wcout << L"　◇　";
+}
+
+void PlayerBase::Delete() {
+	del = true;
+	auto pos = posCur;
+	for (int i = 1; i <= 3; i++) {
+		SetConsoleCursorPosition(GetStdOHdl(), pos);
+		wcout << L"　　　";
+		pos.Y++;
+	}
+	Game::state = G_GAMEOVER;
 }

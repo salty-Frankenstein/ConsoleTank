@@ -23,6 +23,10 @@ COORD Sprite::GetPos()const {
 	return posCur;
 }
 
+bool Sprite::IsDeleted()const {
+	return del;
+}
+
 void Buffer::Show() {
 	for (auto i = spriteList.begin(); i != spriteList.end(); i++)
 		(*i)->Show();
@@ -32,7 +36,7 @@ void Buffer::Update() {
 	for (auto i = spriteList.begin(); i != spriteList.end(); i++)
 		(*i)->Update();
 	spriteList.remove_if(
-		[](shared_ptr<Sprite> x) -> bool {return x->del; }
+		[](shared_ptr<Sprite> x) -> bool {return x->IsDeleted(); }
 	);
 }
 

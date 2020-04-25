@@ -32,7 +32,7 @@ Game::Game() {
 void Game::Run() {
 	system("cls");
 	
-	while (1) {
+	while (state != G_EXIT) {
 		switch (state) {
 		case G_MENU:
 			menu.Run();
@@ -42,11 +42,25 @@ void Game::Run() {
 				stagePtr = make_shared<Stage>(stage, M_EASY);
 				stagePtr->Run();
 			}
+			state = G_WIN;
 			break;
-		case G_HISCORE:
+		case G_GAMEOVER:
+			SetFontSize(18);
+			system("cls");
+			DrawTitle({ 10,10 }, GAMEOVER_PATH);
+			cout << "press any key to return" << endl;
+			_getch();
+			state = G_MENU;
 			break;
-		case G_EXIT:
-			return;
+		case G_WIN:
+			SetFontSize(18);
+			system("cls");
+			DrawTitle({ 10,10 }, WIN_PATH);
+			cout << "press any key to return" << endl;
+			_getch();
+			state = G_MENU;
+			break;
+		default:break;
 		}
 	}
 }
