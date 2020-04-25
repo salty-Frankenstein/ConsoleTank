@@ -9,7 +9,7 @@ Stage::Stage(int no, Mode _mode) {
 	buf.Push(score);
 	buf.Push(playerNum);
 	Game::playerAlive = false;
-	Game::player = 5;
+	Game::player = 1;
 	Game::enemyNow = 0;
 	Game::enemyMax = 0;
 	Game::enemyKill = 0;
@@ -18,6 +18,7 @@ Stage::Stage(int no, Mode _mode) {
 }
 
 void Stage::Run() {
+	SetFontSize(14);
 	system("cls");
 	shared_ptr<Background> bg = make_shared<Background>();
 	bg->Draw();
@@ -34,6 +35,11 @@ void Stage::Run() {
 		buf.Sort();
 		buf.Show();
 		buf.Update();
+
+		if (Game::player == 0) {
+			Game::state = G_MENU;
+			return;
+		}
 		Sleep(20);
 		Game::AddGameTime();
 	}

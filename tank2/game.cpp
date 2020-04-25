@@ -8,18 +8,13 @@ int Game::enemyMax = 0;
 int Game::enemyNow = 0;
 int Game::enemyKill = 0;
 bool Game::playerAlive = true;
+GameState Game::state = G_MENU;
 
 Game::Game() {
 	//system("chcp 65001");
 	//system("cls");
 	system("mode con cols=160 lines=85");
 	wcout.imbue(locale(""));
-	CONSOLE_FONT_INFOEX info = { 0 }; // 以下设置字体
-	info.cbSize = sizeof(info);
-	info.dwFontSize.Y = 14; // leave X as zero
-	info.FontWeight = FW_NORMAL;
-	wcscpy(info.FaceName, L"Consolas");
-	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), NULL, &info);
 
 	HWND hwnd = GetForegroundWindow();
 	int cx = GetSystemMetrics(SM_CXSCREEN);            /* 屏幕宽度 像素 */
@@ -36,17 +31,17 @@ Game::Game() {
 
 void Game::Run() {
 	system("cls");
-	int stage = 1;
-	GameState state = G_GAME;
 	
 	while (1) {
 		switch (state) {
 		case G_MENU:
-			DrawTitle({ 1,3 });
+			menu.Run();
 			break;
 		case G_GAME:
-			stagePtr = make_shared<Stage>(stage, M_EASY);
-			stagePtr->Run();
+			for (int stage = 1; stage <= MAX_STAGE; stage++) {
+				stagePtr = make_shared<Stage>(stage, M_EASY);
+				stagePtr->Run();
+			}
 			break;
 		case G_HISCORE:
 			break;

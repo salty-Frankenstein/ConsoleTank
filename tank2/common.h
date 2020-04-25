@@ -62,3 +62,5 @@ bool IsHit(COORD pos1, int wx1, int wy1, COORD pos2, int wx2, int wy2);
 bool IsSamePos(COORD pos1, COORD pos2);
 
 void DrawTitle(COORD pos);
+
+void SetFontSize(int x);

@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include"common.h"
 #include <string>
 #include <fstream>
@@ -40,4 +41,13 @@ void DrawTitle(COORD pos) {
 		cout << s << endl;
 		pos.Y++;
 	}
+}
+
+void SetFontSize(int x) {
+	CONSOLE_FONT_INFOEX info = { 0 }; // 以下设置字体
+	info.cbSize = sizeof(info);
+	info.dwFontSize.Y = x; // leave X as zero
+	info.FontWeight = FW_NORMAL;
+	wcscpy(info.FaceName, L"Consolas");
+	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), NULL, &info);
 }
