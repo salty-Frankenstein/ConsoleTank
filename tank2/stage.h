@@ -8,7 +8,7 @@
 class Stage {
 public:
 	Stage(int no, Mode mode);
-	void Run();
+	bool Run();
 private:
 	void LoadStage(int no);	//‘ÿ»Îπÿø®
 	void AddEnemy();

@@ -48,6 +48,6 @@ void SetFontSize(int x) {
 	info.cbSize = sizeof(info);
 	info.dwFontSize.Y = x; // leave X as zero
 	info.FontWeight = FW_NORMAL;
-	wcscpy(info.FaceName, L"Consolas");
+	//wcscpy(info.FaceName, L"Consolas");
 	SetCurrentConsoleFontEx(GetStdOHdl(), NULL, &info);
 }

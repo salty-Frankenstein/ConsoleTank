@@ -3,10 +3,10 @@
 using namespace std;
 
 Menu::Menu() {
-	buttons[B_EASY] = make_shared<Button>(35, 20, "EASY");
-	buttons[B_NORMAL] = make_shared<Button>(35, 24, "NORMAL");
-	buttons[B_HARD] = make_shared<Button>(35, 28, "HARD");
-	buttons[B_EXIT] = make_shared<Button>(35, 32, "EXIT");
+	buttons[B_EASY] = make_shared<Button>(30, 18, "EASY");
+	buttons[B_NORMAL] = make_shared<Button>(30, 20, "NORMAL");
+	buttons[B_HARD] = make_shared<Button>(30, 22, "HARD");
+	buttons[B_EXIT] = make_shared<Button>(30, 24, "EXIT");
 	for (int i = 0; i < BUTTON_NUM; i++)
 		buf.Push(buttons[i]);
 	nowActive = 0;
@@ -15,7 +15,7 @@ Menu::Menu() {
 void Menu::Run() {
 	SetFontSize(20);
 	system("cls");
-	DrawTitle({ 10,2 }, LOGO_PATH);
+	DrawTitle({ 10,4 }, LOGO_PATH);
 	while (Game::state == G_MENU) {
 		for (int i = 0; i < BUTTON_NUM; i++)
 			if (i == nowActive)buttons[i]->isActive = true;

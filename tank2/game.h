@@ -22,7 +22,7 @@ public:
 	static int enemyKill;
 	static bool playerAlive;
 	static GameState state;
-	static const int MAX_STAGE = 2;
+	static const int MAX_STAGE = 5;
 private:
 	std::shared_ptr<Stage> stagePtr;
 	Menu menu;

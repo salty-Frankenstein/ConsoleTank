@@ -20,7 +20,7 @@ Stage::Stage(int no, Mode _mode) {
 	mode = _mode;
 }
 
-void Stage::Run() {
+bool Stage::Run() {
 	SetFontSize(14);
 	system("cls");
 	shared_ptr<Background> bg = make_shared<Background>();
@@ -41,14 +41,14 @@ void Stage::Run() {
 		buf.Update();
 
 		if (Game::player == 0) {
-			Game::state = G_GAMEOVER;
+			return false;
 		}
 		if (Game::enemyMax == Game::enemyKill)
-			return;
+			return true;
 		Sleep(20);
 		Game::AddGameTime();
 	}
-
+	return false;
 }
 
 void Stage::LoadStage(int no) {	//读取关卡文件

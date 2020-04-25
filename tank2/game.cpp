@@ -30,7 +30,7 @@ Game::Game() {
 
 void Game::Run() {
 	system("cls");
-
+	bool win = true;
 	/* 游戏主流程状态机 */
 	while (state != G_EXIT) {
 		switch (state) {
@@ -40,9 +40,13 @@ void Game::Run() {
 		case G_GAME:
 			for (int stage = 1; stage <= MAX_STAGE; stage++) {
 				stagePtr = make_shared<Stage>(stage, gameMode);
-				stagePtr->Run();
+				if (!stagePtr->Run()) {
+					win = false;
+					break;
+				}
 			}
-			state = G_WIN;
+			if (win)state = G_WIN;
+			else state = G_GAMEOVER;
 			break;
 		case G_GAMEOVER:
 			SetFontSize(18);

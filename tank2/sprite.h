@@ -48,7 +48,7 @@ public:
 	/* Any: 传入条件函数，如果buffer中存在元素满足，返回指针，否则返回nullptr */
 	std::shared_ptr<Sprite> Any(std::function<bool(std::shared_ptr<Sprite>)>);
 	/* Map: 功能同函数式对列表的map */
-	void Map(std::function<void(std::shared_ptr<Sprite>)>map,
+	void Map(std::function<void(std::shared_ptr<Sprite>)> map,
 		std::function<bool(std::shared_ptr<Sprite>)> cond = 
 		[](std::shared_ptr<Sprite>) {return true; }
 	);

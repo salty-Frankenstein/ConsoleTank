@@ -8,8 +8,8 @@
 #include <string>
 
 /* 地图长宽 */
-const int GRID_X = 42;
-const int GRID_Y = 42;
+const int GRID_X = 41;
+const int GRID_Y = 41;
 const int REDRAW = 20;	//优化性能用
 
 /* 依赖路径常量 */

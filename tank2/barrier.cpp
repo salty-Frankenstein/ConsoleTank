@@ -34,7 +34,7 @@ void BrickWall::Show() {
 	if (Game::GetGameTime() % REDRAW != 0)return;
 	SetConsoleTextAttribute(GetStdOHdl(), 96);
 	SetConsoleCursorPosition(GetStdOHdl(), posCur);
-	wcout << L"╪╪";
+	wcout << L"＋";
 	SetConsoleTextAttribute(GetStdOHdl(), 7);
 }
 
