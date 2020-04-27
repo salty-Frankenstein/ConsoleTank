@@ -1,4 +1,5 @@
 ﻿#include"playertank.h"
+#include"game.h"
 using namespace std;
 const wchar_t PlayerTank::image[PLAYERTANK_X][PLAYERTANK_Y] = {
 	{ L'　',L'█',L'　' },
@@ -47,7 +48,7 @@ inline void PlayerTank::Update() {
 	}
 	posLast = posCur;
 	dirLast = dirCur;
-
+	static GameTime shootTime = 0;
 	/* 键盘事件 */
 	auto bulPos = posCur;
 	if (_kbhit()) {
@@ -69,6 +70,7 @@ inline void PlayerTank::Update() {
 			dirCur = D_DOWN;
 			break;
 		case 'z':	//发射子弹
+			if (Game::GetGameTime() - shootTime <= 5)break;	//连发限制
 			switch (dirCur){
 			case D_UP:bulPos.X += 2; break;
 			case D_DOWN:bulPos.X += 2; bulPos.Y += 2; break;
@@ -76,8 +78,10 @@ inline void PlayerTank::Update() {
 			case D_RIGHT:bulPos.X += 4; bulPos.Y++; break;
 			}
 			/* 如果炮口没有堵上 */
-			if (bufferHdl->Any([=](shared_ptr<Sprite> s) {return IsSamePos(bulPos, s->GetPos()); }) == nullptr)
+			if (bufferHdl->Any([=](shared_ptr<Sprite> s) {return IsSamePos(bulPos, s->GetPos()); }) == nullptr) {
 				bufferHdl->Push(make_shared<Bullet>(S_PLAYER_BULLET, bulPos.X, bulPos.Y, dirCur));
+				shootTime = Game::GetGameTime();
+			}
 			break;
 		default: break;
 		}
